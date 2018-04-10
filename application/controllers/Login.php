@@ -129,8 +129,7 @@ class Login extends CI_Controller
     }
 
     /**
-     * logout function.
-     *
+     * Logout function.
      * @access public
      * @return void
      */
@@ -138,13 +137,14 @@ class Login extends CI_Controller
     {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
-            // remove session datas
+            //This parses through the session variables and wipes them clean
+            //for next login
             foreach ($_SESSION as $key => $value) {
                 unset($_SESSION[$key]);
             }
         }
         $_SESSION['logged_in'] = false;
-        // user logout reset to login page (default)
+        //return to homepage / login 
         redirect('/');
     }
 }
