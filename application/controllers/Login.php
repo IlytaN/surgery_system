@@ -32,7 +32,7 @@ class Login extends CI_Controller
     * The index function handles the get and post requests
     * for the login function
     * It's better practice to separate concerns and have login / index
-    * in two different functions 
+    * in two different functions
     */
 
     public function index()
@@ -42,7 +42,7 @@ class Login extends CI_Controller
 
 
     /**
-     * login function.
+     * Login function.
      *
      * @access public
      * @return void
@@ -61,20 +61,21 @@ class Login extends CI_Controller
 
 
         if ($this->form_validation->run() == false) {
-
-            // validation not ok, send validation errors to the view
-            $this->load->view('header');  // A
-            $this->load->view('users/login');
-            $this->load->view('footer');
+            //This is the GET Request
+            // validation not okay, send validation errors to the view
+            $this->load->view('header');  // Contains all scripts
+            $this->load->view('users/login'); //Actual view itself
+            $this->load->view('footer'); //Typical footer and end tags etc.
 
         } else {
 
             // set variables from the form
             $username = $this->input->post('username');
             $password = $this->input->post('password');
+            //userType was defined as position in ERD
             $user_type = $this->input->post('userType'); // Possibly redundant as the user type can be checked in the DB easily and redirected
 
-            $test = TRUE; // DEV ONLY
+            $test = TRUE; // TODO: DEV ONLY, this is used temporarily as User_model isn't currently working
 
             // ####
             // #### Checks to see if password is correct
@@ -86,7 +87,7 @@ class Login extends CI_Controller
                 // #### Collects user information
                 // ####
                 //$user_id = $this->User_model->get_user_id_from_username($username);
-                //$user = $this->User_model->get_user($user_id);
+                //$user = $this->User_model->get_user($user_id); TODO: This wont work until User_model is fixed
 
 
                 // ####
@@ -98,7 +99,6 @@ class Login extends CI_Controller
                 $_SESSION['logged_in'] = (bool)true;
 
                 // Compile the page
-
                 $this->load->view('header');
 
                 //TODO: set the redirect on successful login - Determined by the user types ... See line 72
@@ -107,7 +107,7 @@ class Login extends CI_Controller
                     //TODO: There needs to be server side restrictions on these pages
                     redirect('doctor/doctorappointments');
                 } else {
-                    redirect('admin');
+                    redirect('secretary');
                 }
 
                 $this->load->view('footer');
@@ -119,7 +119,7 @@ class Login extends CI_Controller
 
                 // send error to the view
                 $this->load->view('header');
-                $this->load->view('users/login', $data);
+                $this->load->view('users/login', $data); //This is passing data from server to view
                 $this->load->view('footer');
 
             }

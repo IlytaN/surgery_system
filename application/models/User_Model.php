@@ -7,7 +7,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * CI_Model is built-in model in CodeIgnitor
  */
 class User_model extends CI_Model {
-
+  // TODO: This isn't currently working, as password hashing isn't working on database side, so it's not "salting" verify_password_hash
+  //TODO: This is an issue for Backend Team to fix
+  
     /**
      * __construct function.
      * Every class in CodeIgnitor has to use __construct which helps define libraries
