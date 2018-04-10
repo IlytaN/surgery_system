@@ -49,7 +49,8 @@ class Login extends CI_Controller
      */
     public function login()
     {
-
+        //setting the state of session variable 
+        $_SESSION['logged_in'] = false;
         // create the data object
         $data = new stdClass();
 
@@ -144,7 +145,7 @@ class Login extends CI_Controller
             }
         }
         $_SESSION['logged_in'] = false;
-        //return to homepage / login 
+        //return to homepage / login
         redirect('/');
     }
 }
