@@ -18,4 +18,10 @@
 #### Acknowledgement:...
 
 
-** TEST (delete after) : This is our surgery management system **
+** Catherine SETUP Notes **
+When setting up in CodeIgnitor, ensure you have put the correct URL for the local host in config.php folder, line 26 (config folder)
+
+To configure the database (database.php), hostname is set to local IP not local host, in my case 127.0.0.1 (standard IP address)
+
+If you have issues connecting database (I'm using MAMP), it said 3306 for port, but it was 8889
+To specify port
