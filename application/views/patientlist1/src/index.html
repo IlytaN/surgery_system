@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap 4, from LayoutIt!</title>
+    <title>surgery management</title>
 
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
@@ -14,190 +14,177 @@
     <link href="css/style.css" rel="stylesheet">
 
   </head>
-
   <body>
-  <style>h3 {text-align:center; margin-bottom:50px;}</style>
     <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12" style="margin-top:50px;">
-      surgery management system-docter view
-		</div>
-	</div>
-	<div class="row" style="padding-top: 60px;">
-		<div class="col-md-3">
-		</div>
-		<div class="col-md-7">
+		<div class="col-md-10">
 			<h3>
-				patient lists
+				doctor view
 			</h3>
 		</div>
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-1">
-
-			<button type="button" class="btn btn-outline-secondary">
-				logout
-			</button>
+		<div class="col-md-2">
+			 <a href="#" class="btn btn-secondary btn-block btn-sm" type="button">logout</a>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
+			<h4>
+			patient list
+    </h4>
+			<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <form class="form-inline">
+              <div class"search" >
+          <input class="form-control mr-sm-2" type="text" style="margin-left: 600px; width:500px;">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">
+            Search
+            </div>
+          </button>
+        </form>
+
+			</nav>
 			<div class="row">
 				<div class="col-md-3">
-				</div>
-				<div class="col-md-8">
-					<form role="form" class="form-inline">
-						<div class="form-group">
-
-							<label for="exampleInputEmail1">
-								patient search
-							</label>
-							<input type="patientname" class="form-control" id="exampleInputEmail1">
-						</div>
-
-						<div class="checkbox">
-						</div>
-						<button type="submit" class="btn btn-primary">
-							Submit
-						</button>
-					</form>
-				</div>
-				<div class="col-md-1">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1">
-				</div>
-				<div class="col-md-10">
-					<div class="tabbable" id="tabs-640195">
+					<div class="tabbable" id="tabs-983974">
 						<ul class="nav nav-tabs">
 							<li class="nav-item">
-								<a class="nav-link active" href="#panel-351537" data-toggle="tab">patients</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#panel-889182" data-toggle="tab">timeslot</a>
+								<a class="nav-link active" href="#panel-520359" data-toggle="tab">patients</a>
 							</li>
               <li class="nav-item">
-								<a class="nav-link" href="#panel-889182" data-toggle="tab">appointment</a>
+								<a class="nav-link" href="#panel-423427" data-toggle="tab">time slot</a>
+							</li>
+              <li class="nav-item">
+								<a class="nav-link" href="#panel-101010" data-toggle="tab">appointment</a>
 							</li>
 						</ul>
 						<div class="tab-content">
-							<div class="tab-pane active" id="panel-351537">
+							<div class="tab-pane active" id="panel-520359">
 								<p>
-									I'm in Section 1.
+									patients
 								</p>
 							</div>
-							<div class="tab-pane" id="panel-889182">
+							<div class="tab-pane" id="panel-423427">
 								<p>
-									Howdy, I'm in Section 2.
+									time timeslot
 								</p>
 							</div>
+              <div class="tab-pane" id="panel-101010">
+								<p>
+									appointment
+								</p>
+							</div>
+
 						</div>
 					</div>
 				</div>
-				<div class="col-md-1">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-8">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>
-							#
-						</th>
-						<th>
-							name
-						</th>
-						<th>
-							Payment Taken
-						</th>
-						<th>
-							Status
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Default
-						</td>
-					</tr>
-					<tr class="table-active">
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Approved
-						</td>
-					</tr>
-					<tr class="table-success">
-						<td>
-							2
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							02/04/2012
-						</td>
-						<td>
-							Declined
-						</td>
-					</tr>
-					<tr class="table-warning">
-						<td>
-							3
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							03/04/2012
-						</td>
-						<td>
-							Pending
-						</td>
-					</tr>
-					<tr class="table-danger">
-						<td>
-							4
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							04/04/2012
-						</td>
-						<td>
-							Call in to confirm
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="row">
-				<div class="col-md-3">
-				</div>
-				<div class="col-md-6">
+				<div class="col-md-8">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									PatId
+								</th>
+								<th>
+									PatName
+								</th>
+								<th>
+									PatBirthDate
+								</th>
+								<th>
+									PatGender
+								</th>
+                <th>
+									PatAddress
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+		<td>
+							   	1
+								</td>
+								<td>
+									PatName
+								</td>
+								<td>
+									PatBirthDate
+								</td>
+								<td>
+									PatGender
+								</td>
+                <td>
+                PatAddress
+                </td>
+							</tr>
+    <tr class='row_2'>
+                <td>
+                  2
+                </td>
+                <td>
+                  PatName
+                </td>
+                <td>
+                  PatBirthDate
+                </td>
+                <td>
+                  PatGender
+                </td>
+                <td>
+                PatAddress
+                </td>
+              </tr>
+      <tr class='row_3'>
+								<td>
+							   	3
+								</td>
+								<td>
+									PatName
+								</td>
+								<td>
+									PatBirthDate
+								</td>
+								<td>
+									PatGender
+								</td>
+                <td>
+                PatAddress
+                </td>
+							</tr>
+      <tr class='row_4'>
+								<td>
+							   	4
+								</td>
+								<td>
+									PatName
+								</td>
+								<td>
+									PatBirthDate
+								</td>
+								<td>
+									PatGender
+								</td>
+                <td>
+                PatAddress
+                </td>
+							</tr>
+        <tr class='row_5'>
+								<td>
+							   	5
+								</td>
+								<td>
+									PatName
+								</td>
+								<td>
+									PatBirthDate
+								</td>
+								<td>
+									PatGender
+								</td>
+                <td>
+                PatAddress
+                </td>
+							</tr>
+						</tbody>
+					</table>
 					<nav>
 						<ul class="pagination">
 							<li class="page-item">
@@ -224,15 +211,9 @@
 						</ul>
 					</nav>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-1">
 				</div>
 			</div>
-		</div>
-		<div class="col-md-2">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
 		</div>
 	</div>
 </div>
