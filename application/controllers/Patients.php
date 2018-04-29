@@ -16,6 +16,13 @@ class Patients extends CI_Controller {
   		$data['page']='patients/show_patient';
   		$this->load->view('menu/content',$data);
   	}
+		// show all patients with summary
+			public function show_patients_with_summary() {
+				$this->load->model('Patients_model');
+				$data['patient']=$this->Patients_model->getPatientWithSummary();
+				$data['page']='patients/show_patient_with_summary';
+				$this->load->view('menu/content',$data);
+			}
   // add a new patient
     public function add_patient()
   	{
@@ -36,11 +43,18 @@ class Patients extends CI_Controller {
             $data['page']='patients/add_patient';
             $this->load->view('menu/content',$data);
   	}
-		// go to patient details page
+		// go to patient details page (secretary)
 		public function show_patient_details($p_id) {
 			$this->load->model('Patients_model');
 			$data['patient']=$this->Patients_model->getPatientDetails($p_id);
 			$data['page']='patients/show_patient_details';
+			$this->load->view('menu/content',$data);
+		}
+		// go to patient details page (doctor)
+		public function show_patient_details_doc($p_id) {
+			$this->load->model('Patients_model');
+			$data['patient']=$this->Patients_model->getPatientDetails($p_id);
+			$data['page']='patients/show_patient_details_doc';
 			$this->load->view('menu/content',$data);
 		}
   	// delete a patient

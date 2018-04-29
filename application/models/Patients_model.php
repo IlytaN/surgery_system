@@ -7,6 +7,13 @@ Class Patients_model extends CI_model {
 		$this->db->from('patients');
 		return $this->db->get()->result_array();
 	}
+	// get all patients with summary
+	public function getPatientWithSummary(){
+		$this->db->select('*');
+		$this->db->from('patients');
+		$this->db->join('visits','visits.PatId=patients.PatId','left');
+		return $this->db->get()->result_array();
+	}
 	// get a patient's details
 	public function getPatientDetails($p_id){
 		$this->db->select('*');
