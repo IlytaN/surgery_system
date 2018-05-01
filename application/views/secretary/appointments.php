@@ -198,7 +198,7 @@
 
             // collect form data
 
-            $.post("secretary/secretaryappointments/newappointment", {patientNameNewAppointment: "John"})
+            $.post("secretaryappointments/newappointment", {patientNameNewAppointment: "John"})
                 .done(function (resp) {
                     console.log(resp)
                     //CK: This  will allow us to rerender the appointments once it returns true.-->

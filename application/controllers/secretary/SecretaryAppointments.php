@@ -254,11 +254,10 @@ class SecretaryAppointments extends CI_Controller
 
     public function newappointment()
     {
-
-        // CK handles all the backend for creating an appointment - dummy so that the AJAX request can be made in teh JS
-
-        echo "ASFHDGJFHKEJRYK";
-
+        // CK: handles all the backend for creating an appointment - dummy so that the AJAX request can be made in teh JS
+        $received = $this->input->post('patientNameNewAppointment');
+        $return = array('status' => $received);
+        $this->output->set_content_type("application/json")->set_output(json_encode($return));
     }
 
 
