@@ -140,8 +140,9 @@ input.form-check-input{
               <div >Birthday:
                 <p><input type="date" id="PatBirth" name="PatBirth" placeholder="BirthDate"></p>
               </div>
+
               <div class="radio-toolbar">Gender:
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline" style="padding:10px 0px 10px 0px; border: solid 0.5px darkgray;">
                 <label class="form-check-label" for="inlineRadio1">Male</label>  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                   <label class="form-check-label" for="inlineRadio2">Female</label>  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                     <label class="form-check-label" for="inlineRadio3">other</label>  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
@@ -150,14 +151,111 @@ input.form-check-input{
               <div >Address:
                 <p><input placeholder="address" oninput="this.className = ''" name="phone"> </p>
               </div>
-              <div >Contact Info:
-                <p><input placeholder="Phone" oninput="this.className = ''" name="phone"></p>
-              </div>
 </div>
               <div class="tab">
                 <h3>Medical Records</h3>
-                <label class="control-label">Allegies:</label>
-                <p><input placeholder="Allegies:" oninput="this.className = ''" name="Allergies"></p>
+                <table class="table table-condensed "  id="vertical-1">
+
+                 <tr>
+                     <th>Allergies</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Cancer</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Depression</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Epilepsy</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Heart_disease</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Liver_disease</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>Diabetes</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>High_blood_pressure</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                 <tr>
+                     <th>other_problems</th>
+                     <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active btn-sm">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+    </label>
+    <label class="btn btn-secondary btn-sm">
+      <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+    </label>
+  </div></td>
+                 </tr>
+                </table>
                 <label class="control-label">Notes</label>
                 <p><input placeholder="Notes" oninput="this.className = ''" name="Notes" ></p>
               </div>
