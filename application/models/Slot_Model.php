@@ -45,6 +45,29 @@
 			*/
 		}
 		
+		//Used to return all patients
+		function getPatients(){
+			$this->load->database();
+			$query = $this->db->query("SELECT * FROM patients");
+			$query->result_array();
+			return $query->result_array();
+		}
+		
+		function getDoctors(){
+			$this->load->database();
+			$query = $this->db->query("SELECT * FROM doctors");
+			$query->result_array();
+			return $query->result_array();
+		}
+		
+		//Used to return all appointments
+		function getAppointments(){
+			$this->load->database();
+			$query = $this->db->query("SELECT SlotDate, PatName, DocName, start_time FROM appointments JOIN patients using(PatId) JOIN slot using(SlotId) JOIN doctors using(DocId)");
+			$query->result_array();
+			return $query->result_array();
+		}
+		
 		function return_patient($patient_entered){
 			echo"entered return_patient";
 			$date = $this->input->post('date');
@@ -63,6 +86,68 @@
 			//print_r($query->result_array());
 			//echo "</pre>";
 			return $query->result_array();
+		}
+		
+		//Function used to enter a slot into the slot table
+		function enter_appointment($Patientname, $Doctorname, $Starttime, $Finishtime, $Date, $Cost){
+			$this->load->database();
+			echo"In enter_appointment";
+			echo"</br>";
+			
+			/*
+			$Doctorname = "David Kane";
+			$Patientname = "Sarah Connor";
+			$Starttime = "9:00";
+			$Finishtime = "9:30";
+			$Date = "2018-01-28";
+			$Cost = 60;
+			*/
+			echo($Doctorname);
+			
+			$con = mysqli_connect("localhost", "root", "", "surgtest");
+			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);	
+			$DocId = $rs['DocId'];
+			
+			$sql = "SELECT DocId FROM slot WHERE DocId Like '$DocId' and SlotDate like'$Date' and start_time like'$Starttime' and finish_time like '$Finishtime'";
+			$result = mysqli_query($con, $sql);
+			$rowcount=mysqli_num_rows($result);
+			
+			//To check if the time slot is already taken 
+			if($rowcount > 0){
+				echo"Already exists";
+			}
+			else
+			{
+				$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+				$result = mysqli_query($con, $sql);
+				$rs = mysqli_fetch_array($result);
+				// Used to store the doctors id to be used in another query
+				// https://stackoverflow.com/questions/28634852/how-to-store-a-variable-from-a-sql-query-php
+				$DocId = $rs['DocId'];
+				echo($DocId);
+				echo"</br>";
+				
+				//Used to get the patients id to be inserted into the appointment table
+				$sql = "SELECT PatId FROM patients WHERE PatName Like '$Patientname'";
+				$result = mysqli_query($con, $sql);
+				$rs = mysqli_fetch_array($result);
+				$PatId = $rs['PatId'];
+				echo($PatId);	
+				
+				//Inserts the information into the table slot
+				$query = $this->db->query("INSERT INTO slot (DocID, SlotDate, start_time, finish_time, cost) VALUES('$DocId', '$Date', '$Starttime', '$Finishtime', '$Cost')");
+				
+				//Used to get SlotId to insert into the table appointments
+				$sql = "SELECT SlotId FROM slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time like '$Starttime'";
+				$result = mysqli_query($con, $sql);
+				$rs = mysqli_fetch_array($result);
+				$SlotId = $rs['SlotId'];
+				echo($SlotId);
+				
+				$query = $this->db->query("INSERT INTO Appointments (PatId, SlotId) VALUES('$PatId', $SlotId)");
+			}
 		}
 		
 		//Function used to enter a slot into the slot table

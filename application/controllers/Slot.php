@@ -67,6 +67,15 @@
 			$this->load->view('Createslot_view');
 		}
 		
+		public function displayCKappointment(){
+			echo"entered displayCKappointment()";
+			$this->load->helper("form");
+			$this->load->helper("url");
+			$this->load->model("Slot_Model");
+			$data['patients'] = $this->Slot_Model->getPatients();
+			$this->load->view('CKappoinment', $data);
+		}
+		
 		public function enterSlot(){
 			echo "entered enterSlot()";
 			$this->load->helper("form");
@@ -110,9 +119,9 @@
 			$this->load->helper("url");
 			$Id = 1;
 			$DocId = 4;
-			$SlotDate = "2017-11-05";
-			$Starttime = "8:30";
-			$Finishtime = "9:00";
+			$SlotDate = "2018-04-23T01:58:47";
+			$Starttime = "9:00";
+			$Finishtime = "9:30";
 			$Cost = 60;
 			$this->load->model("Slot_Model");
 			$this->Slot_Model-> update_slot($Id, $DocId, $SlotDate, $Starttime, $Finishtime, $Cost);
