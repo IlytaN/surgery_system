@@ -20,7 +20,7 @@
                         <select id="patientNameNewAppointment" class="selectpicker" data-live-search="true">
                             <!-- CK: pulling data form dummy data in the backend  -->
                             <!-- CK: looping over the data and creating the option element - values are just the
-                                     indexes of the array for now, but could be replcaed by specfic patient IDs
+                                     indexes of the array for now, but could be replaced by specific patient IDs
                              -->
                             <?php for ($c = 0; $c < count($patients); $c++) {
                                 echo '<option value="' . $c . '">' . $patients[$c]['patient'] . '</option>';

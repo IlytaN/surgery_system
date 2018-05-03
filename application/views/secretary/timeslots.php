@@ -28,9 +28,7 @@
 </div>
 
 <script>
-
     var timeslots = <?php echo '["an array of timeslots"]'?>
-
         $(document).ready(function () {
             // page is ready
             $('#timeslotsCalender').fullCalendar({
