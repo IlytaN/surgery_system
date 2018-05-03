@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <h2>Patient details</h2>
 <h4>Secretary's view</h4>
 <TABLE class="table table-hover">

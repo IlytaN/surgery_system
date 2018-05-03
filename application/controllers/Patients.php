@@ -1,3 +1,5 @@
+<!-- This file is used only for reference, as most functions have been moved to DoctorPatients.php
+			and SecretaryPatients.php -->
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Patients extends CI_Controller {
