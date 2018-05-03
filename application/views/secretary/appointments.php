@@ -234,7 +234,7 @@
 			};
 			*/
 			
-            $.post("http://localhost/surgery_system/index.php/SecretaryAppointments/newappointment", {patientNameNewAppointment: pn, doctorNameNewAppointment: dn, startlotNewAppointment: startt, finishSelectNewAppointment: finisht, Date: dates, Cost: 60})
+            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/newappointment", {patientNameNewAppointment: pn, doctorNameNewAppointment: dn, startlotNewAppointment: startt, finishSelectNewAppointment: finisht, Date: dates, Cost: 60})
                 .done(function (resp) {
                     console.log(resp);
                     //CK: This  will allow us to rerender the appointments once it returns true.-->
