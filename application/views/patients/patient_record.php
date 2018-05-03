@@ -26,6 +26,127 @@ background: #f2f2f2;}
         </div><!-- /.container-fluid -->
     </nav>
 </header>
+<div class="modal" id="patientModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Change Medical Records</h4>
+            </div>
+
+            <!--CK:  TODO: trigger the display of EDIT or VIEW in JS and avoid Over complication with PHP views -->
+            <div class="modal-body">
+              <table class="table table-condensed "  id="vertical-1">
+
+               <tr>
+                   <th>Allergies</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Cancer</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Depression</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Epilepsy</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Heart_disease</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Liver_disease</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>Diabetes</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>High_blood_pressure</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+               <tr>
+                   <th>other_problems</th>
+                   <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-sm">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> <span class="glyphicon glyphicon-remove"></span>
+  </label>
+  <label class="btn btn-secondary btn-sm">
+    <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-ok"></span>
+  </label>
+</div></td>
+               </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" style="width: 40%" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container"style="text-align:center;">
     <h1><strong>Patient-(name)</strong></h1>
 </div>
@@ -82,7 +203,7 @@ background: #f2f2f2;}
        </div>
       <div class="col-md-5">
         <table class="table table-condensed "  id="vertical-1">
-         <caption>MedicalRecord<button class="btn" data-toggle="modal" data-target="#patientModalEdit"
+         <caption>MedicalRecord<button class="btn" data-toggle="modal" data-target="#patientModalEdit"style="float:right;"
                  data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>Edit
          </button></caption>
 
@@ -134,7 +255,8 @@ background: #f2f2f2;}
         </div>
         <div class="container">
           <div class="panel panel-info">
-                <div class="panel-heading">Scheduled Appointment</div>
+                <div class="panel-heading">Scheduled Appointment<button class="btn btn-primary" style="float:right" data-toggle="modal" data-target="#patientModalView"
+                        data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>Add Visit Summary</button></div>
                 <div class="panel-body">  <table id="example" class="table table-bordered table-hover">
                       <thead>
                       <tr href=>
@@ -152,8 +274,7 @@ background: #f2f2f2;}
                           <td><date>4/30/2018 </date></td>
                           <td>  <time>13:00~14:00</time></td>
                           <td>Vaccination</td>
-                          <td>scheduled<button class="btn btn-primary" data-toggle="modal" data-target="#patientModalView"
-                                  data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>Add Visit Summary</button></td>
+                          <td>scheduled</td>
                       </tr>
 
                       </tbody>
@@ -162,7 +283,8 @@ background: #f2f2f2;}
               </div>
             <div class="panel panel-info">
 
-          <div class="panel-heading">Visit History</div>
+          <div class="panel-heading">Visit History  <button class="btn btn-primary" style="float:right" data-toggle="modal" data-target="#patientModalView"
+                  data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>View</button> </div>
           <div class="panel-body">
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
@@ -170,7 +292,7 @@ background: #f2f2f2;}
                     <th>Visit#</th>
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Visit Summary    </th>
+                    <th>Visit Summary  </th>
 
                 </tr>
                 </thead>
@@ -180,8 +302,7 @@ background: #f2f2f2;}
                     <td>1</td>
                     <td><time>2018-04-25</time></td>
                     <td><time>9:00~10:00</time></td>
-                    <td>cough itchy throat<button class="btn btn-primary" data-toggle="modal" data-target="#patientModalView"
-                            data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>View</button></td>
+                    <td>cough itchy throat</td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -192,7 +313,7 @@ background: #f2f2f2;}
                 <tr>
                     <td>3</td>
                     <td><time>2018-05-29</time></td>
-                    <td>  <time>13:00~16</time></td>
+                    <td>  <time>13:00~16:00</time></td>
                       <td>Vaccination</td>
                 </tr>
 
@@ -202,5 +323,8 @@ background: #f2f2f2;}
 </div>
 
                         </div>
+                  <script>
+ $('table').SetEditable();
+</script>
 
 </html>
