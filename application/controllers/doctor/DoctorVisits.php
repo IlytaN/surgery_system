@@ -34,10 +34,10 @@ class DoctorVisits extends CI_Controller
     {
         // create the data object
         $data = new stdClass();
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('doctor/doctor');
         $this->load->view('doctor/visits');  // contains table data
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
     }
 
 

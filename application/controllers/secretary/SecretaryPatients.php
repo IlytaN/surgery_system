@@ -153,9 +153,9 @@ class SecretaryPatients extends CI_Controller
         $data['patients'] = $patients_long;
 
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('secretary/secretary');
         $this->load->view('secretary/patients', $data);
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
     }
 }

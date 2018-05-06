@@ -245,10 +245,10 @@ class SecretaryAppointments extends CI_Controller
 
         $data['appointments'] = $appts;
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('secretary/secretary');
         $this->load->view('secretary/appointments', $data);
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
 
     }
 

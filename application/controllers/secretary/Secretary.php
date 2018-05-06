@@ -34,9 +34,9 @@ class Secretary extends CI_Controller
     public function index()
     {
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('secretary/secretary');
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
 
     }
 }

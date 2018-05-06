@@ -6,20 +6,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @extends CI_Model
  */
-class User_model extends CI_Model {
-
+class User_model extends CI_Model
+{
     /**
      * __construct function.
      *
      * @access public
      * @return void
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         parent::__construct();
         $this->load->database();
-
     }
+
     /**
      * resolve_user_login function.
      *
@@ -28,15 +28,13 @@ class User_model extends CI_Model {
      * @param mixed $password
      * @return bool true on success, false on failure
      */
-    public function resolve_user_login($username, $password) {
-
+    public function resolve_user_login($username, $password)
+    {
         $this->db->select('password');
         $this->db->from('users');
         $this->db->where('username', $username);
         $hash = $this->db->get('users')->row('password');
-
         return $this->verify_password_hash($password, $hash);
-
     }
 
     /**
@@ -47,15 +45,12 @@ class User_model extends CI_Model {
      *
      * @return int the user id
      */
-    public function get_user_id_from_username($username) {
-
-
+    public function get_user_id_from_username($username)
+    {
         $q = $this->db->select('id')->from('users')->where('username', $username);
         echo $q;
         var_dump(get_object_vars($this->db));
-
-       return $q->get()->row('id');
-
+        return $q->get()->row('id');
     }
 
     /**
@@ -65,14 +60,12 @@ class User_model extends CI_Model {
      * @param mixed $user_id
      * @return object the user object
      */
-    public function get_user($user_id) {
-
+    public function get_user($user_id)
+    {
         $this->db->from('users');
         $this->db->where('id', $user_id);
         return $this->db->get()->row();
-
     }
-
 
     /**
      * verify_password_hash function.
@@ -82,10 +75,8 @@ class User_model extends CI_Model {
      * @param mixed $hash
      * @return bool
      */
-    private function verify_password_hash($password, $hash) {
-
+    private function verify_password_hash($password, $hash)
+    {
         return password_verify($password, $hash);
-
     }
-
 }

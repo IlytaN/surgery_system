@@ -34,9 +34,9 @@ class Doctors extends CI_Controller
     public function index()
     {
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('doctor/doctor');
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
 
     }
 }

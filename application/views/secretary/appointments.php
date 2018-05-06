@@ -144,7 +144,7 @@
 <script>
 
     var appointments = <?php echo json_encode($appointments) ?>;
-    var events = []
+    var events = [];
     // CK - refactor for the library events
     for (var app in appointments) {
         events.push({
@@ -153,7 +153,6 @@
             doctor: appointments[app]['doctor']
         })
     }
-
 
 
     //CK - Setup for the calender using specific library
@@ -177,7 +176,14 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            eventRender: function(eventObj, $el) {
+            eventClick: function (event, element)
+                //event.title = "CLICKED!";
+                //$('#appointmentsCalender').fullCalendar('updateEvent', event);
+                // TODO: Trigger update modal to update the clicked event
+                // We can have the delete event here as well as it kinda make sense
+            },
+            eventRender: function (eventObj, $el) {
+                // rather than the popover we could handle this all in a modal
                 $el.popover({
                     title: "Patient: " + eventObj.title,
                     content: "Doctor: " + eventObj.doctor,
@@ -186,11 +192,12 @@
                     container: 'body'
                 });
             },
-        })
+        });
+
 
         $('#newAppointmentModal').on('show.bs.modal', function (event) {
             // do stuff
-        })
+        });
 
 
         //CK: There might be a better PHP way of doing this
@@ -204,7 +211,7 @@
                     //CK: This  will allow us to rerender the appointments once it returns true.-->
                     //https://fullcalendar.io/docs/rerenderEvents
                 });
-        })
-    })
+        });
+    });
 
 </script>

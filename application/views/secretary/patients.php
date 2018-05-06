@@ -170,7 +170,7 @@
         $('#patientTable').DataTable();
         // CK - Taken from Bootstrap documentation (https://getbootstrap.com/docs/3.3/javascript/#modals)
         // CK - This is the listener for the modal popup, to we pass the relevant data to the right elements
-        $('#patientModalEdit ').on('show.bs.modal', function (event) {
+        $('#patientModalEdit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
             var recipient = button.data('viewpatient'); // Extract info from data-* attributes
             var modal = $(this);

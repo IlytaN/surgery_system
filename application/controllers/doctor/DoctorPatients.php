@@ -17,6 +17,16 @@ class DoctorPatients extends CI_Controller
      * @return void
      */
 
+    // Just made the dummy data global for ease of use
+    public $patients = array(
+        array("patient" => "Elijah Perez", "age" => 66, "dob" => "06/17/2017", "gp" => "Dr Lisandra Daniel"),
+        array("patient" => "Dillon Chase", "age" => 75, "dob" => "05/04/2018", "gp" => "Dr Brett Christian"),
+        array("patient" => "Dustin Long", "age" => 4, "dob" => "04/18/2019", "gp" => "Dr Rogan Berger"),
+        array("patient" => "Cecilia Shelton", "age" => 29, "dob" => "02/01/2018", "gp" => "Dr Xerxes Palmer"),
+        array("patient" => "Darius Houston", "age" => 57, "dob" => "10/25/2018", "gp" => "Dr Jermaine Workman"),
+        array("patient" => "Harding Atkins", "age" => 28, "dob" => "09/29/2018", "gp" => "Dr Slade Bates"),
+    );
+
     // Each Controller requires a construct to load dependencies
     public function __construct()
     {
@@ -34,18 +44,17 @@ class DoctorPatients extends CI_Controller
 
     }
 
-    public function patients(){
-
-
+    public function patients()
+    {
         // create the data object
-        $patients = array(
-            array("patient" => "Elijah Perez", "age" => 66, "dob" => "06/17/2017", "gp" => "Dr Lisandra Daniel"),
-            array("patient" => "Dillon Chase", "age" => 75, "dob" => "05/04/2018", "gp" => "Dr Brett Christian"),
-            array("patient" => "Dustin Long", "age" => 4, "dob" => "04/18/2019", "gp" => "Dr Rogan Berger"),
-            array("patient" => "Cecilia Shelton", "age" => 29, "dob" => "02/01/2018", "gp" => "Dr Xerxes Palmer"),
-            array("patient" => "Darius Houston", "age" => 57, "dob" => "10/25/2018", "gp" => "Dr Jermaine Workman"),
-            array("patient" => "Harding Atkins", "age" => 28, "dob" => "09/29/2018", "gp" => "Dr Slade Bates"),
-        );
+        //        $patients = array(
+        //            array("patient" => "Elijah Perez", "age" => 66, "dob" => "06/17/2017", "gp" => "Dr Lisandra Daniel"),
+        //            array("patient" => "Dillon Chase", "age" => 75, "dob" => "05/04/2018", "gp" => "Dr Brett Christian"),
+        //            array("patient" => "Dustin Long", "age" => 4, "dob" => "04/18/2019", "gp" => "Dr Rogan Berger"),
+        //            array("patient" => "Cecilia Shelton", "age" => 29, "dob" => "02/01/2018", "gp" => "Dr Xerxes Palmer"),
+        //            array("patient" => "Darius Houston", "age" => 57, "dob" => "10/25/2018", "gp" => "Dr Jermaine Workman"),
+        //            array("patient" => "Harding Atkins", "age" => 28, "dob" => "09/29/2018", "gp" => "Dr Slade Bates"),
+        //        );
         $patients_long = array(
             array("patient" => "Sloane Walter", "age" => 23, "dob" => "02/08/2019", "gp" => "Dr Aquila Bryan"),
             array("patient" => "April Petersen", "age" => 35, "dob" => "11/25/2017", "gp" => "Dr Bell Stanton"),
@@ -141,11 +150,46 @@ class DoctorPatients extends CI_Controller
             array("patient" => "Nevada Calhoun", "age" => 83, "dob" => "01/31/2018", "gp" => "Dr Phyllis Durham"),
             array("patient" => "Garrett Mccarthy", "age" => 49, "dob" => "06/11/2018", "gp" => "Dr Steel Browning"),
             array("patient" => "Victoria Jennings", "age" => 41, "dob" => "04/11/2018", "gp" => "Dr Guy Gomez"));
-        $data['patients'] = $patients_long;
+        $data['patients'] = $this->patients;
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('doctor/doctor');
         $this->load->view('doctor/patients', $data);  // contains table data
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
+    }
+
+    public function add_new_patient()
+    {
+
+
+        //TODO: add new patient properly
+
+
+        $data['new_p_details'] = $this->input->post();
+        $return = array('data' => $data['new_p_details']);
+        $this->output->set_content_type("application/json")->set_output(json_encode($return));
+
+
+    }
+
+
+    public function get_patient_details($p_id)
+    {
+
+        //
+        //  CK: I've just put the 'show_patients_details' functions from the patients.php files here as
+        //      I was unsure if we want to just do a get request here to pull the data??
+        //      might be better if we handle it in a popup modal ???
+        //
+
+        //        $this->load->model('Patients_model');
+        //        // create the data object
+        //        $data['details'] = $this->Patients_model->getPatientDetails($p_id);
+
+
+        $data['p_details'] = $this->patients[0];
+        $return = array('data' => $data['p_details']);
+        $this->output->set_content_type("application/json")->set_output(json_encode($return));
+
     }
 }

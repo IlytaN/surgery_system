@@ -2,7 +2,6 @@
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +9,7 @@
                 <h4 class="modal-title">Patient Register Form</h4>
             </div>
             <div class="modal-body">
-                <form id="regForm" action="/action_page.php">
+                <form id="newPatientForm" class="form-horizontal">
                     <!-- One "tab" for each step in the form: -->
                     <div class="tab">Name:
                         <p><input class="form-control" placeholder="Patname" name="name">
@@ -183,9 +182,13 @@
                         <p><input placeholder="Notes" oninput="this.className = ''" name="Notes"></p>
                     </div>
                     <div style="overflow:auto;">
-                        <div style="float:right;">
-                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Patient info</button>
-                            <button type="button" id="nextBtn" onclick="nextPrev(1)">MedicalRecord</button>
+                        <div>
+                            <button type="button" id="prevBtn" class="btn-primary btn" onclick="nextPrev(-1)">Patient
+                                info
+                            </button>
+                            <button type="button" id="nextBtn" class="btn-primary btn" onclick="nextPrev(1)">
+                                MedicalRecord
+                            </button>
                         </div>
                     </div>
                     <!-- Circles which indicates the steps of the form: -->
@@ -239,7 +242,8 @@
                                 CK: utilising HTML5 data-*** attribute to attach the data to the element
                             -->
                             <a type="button" class="btn btn-primary"
-                               href="<?= base_url('index.php/patients/patient_record') ?>">Patient page</a>
+                               href="<?= base_url('index.php/doctor/doctorpatients/get_patient_details/0') ?>">Patient
+                                page</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -263,16 +267,17 @@
             var recipient = button.data('viewpatient') // Extract info from data-* attributes
             var modal = $(this)
             console.log(recipient)
-            modal.find('.modal-title').text('Patient: ' + recipient.patient)
+            modal.find('.modal-title').text('Patient: ' + recipient.patient);
             modal.find('#patientModelName').val(recipient.patient);
-            modal.find('#patientModelDob').val(recipient.dob)
-            modal.find('#patientModelAge').val(recipient.age)
-            modal.find('#patientModelDoctor').val(recipient.gp)
+            modal.find('#patientModelDob').val(recipient.dob);
+            modal.find('#patientModelAge').val(recipient.age);
+            modal.find('#patientModelDoctor').val(recipient.gp);
         })
     });
 
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the crurrent tab
+
 
     function showTab(n) {
         // This function will display the specified tab of the form...
@@ -305,7 +310,15 @@
         // if you have reached the end of the form...
         if (currentTab >= x.length) {
             // ... the form gets submitted:
-            document.getElementById("regForm").submit();
+            $(document).ready(function () {
+                var fdata = $("#newPatientForm").serializeArray();
+                var url = "doctorpatients/add_new_patient?";
+                $.post(url, fdata)
+                    .done(function (resp) {
+                        console.log(resp)
+
+                    });
+            })
             return false;
         }
         // Otherwise, display the correct tab:

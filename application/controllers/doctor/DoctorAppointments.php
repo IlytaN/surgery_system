@@ -44,9 +44,9 @@ class DoctorAppointments extends CI_Controller
         // create the data object
         $data = new stdClass();
 
-        $this->load->view('header');
+        $this->load->view('menu/header');
         $this->load->view('doctor/doctor');
         $this->load->view('doctor/appointments');  // must contain table data
-        $this->load->view('footer');
+        $this->load->view('menu/footer');
     }
 }
