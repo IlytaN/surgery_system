@@ -32,7 +32,7 @@ a.btn.btn-primary.side-menu-button{width:110px; margin-bottom: 50px;}
     <div class="btn-group-ck">
       <div><a class="btn btn-primary side-menu-button" href="<?= base_url('index.php/patients/doctor_app') ?>">Appointments</a> </div>
       <div><a class="btn btn-primary side-menu-button" href="<?= base_url('index.php/patients/doctor_visit') ?>">Visits</a> </div>
-      <div> <a class="btn btn-primary side-menu-button" href="<?= base_url('index.php/patients/doctor_patient') ?>">Patients</a> </div>
+      <div> <a class="btn btn-primary side-menu-button"  style="background-color:#000066;border:0;"href="<?= base_url('index.php/patients/doctor_patient') ?>">Patients</a> </div>
     </div>
   </aside>
 </div>
@@ -43,15 +43,15 @@ a.btn.btn-primary.side-menu-button{width:110px; margin-bottom: 50px;}
             <div class="box">
               <div class="box-body">
                 <!--patient table-->
-                      <table border="1" onclick="showDetails(event)" id="patientTable" class="table table-bordered table-hover " style=" ">
-                              <thead>
+                      <table border="1" onclick="showDetails(event)" id="patientTable" class="table table-bordered table-hover " >
+                              <thead style="background-color:#e6eeff;">
                                 <tr>
                                   <th>Patient ID </th>
                                   <th>Patient Name</th>
                                   <th>DOB</th>
                                   <th>Gender</th>
-                                  <th>Last Visit date</th>
-                                  <th>Last Visit summary</th>
+                                  <th>Last Visit Date</th>
+                                  <th>Last Visit Summary</th>
                                   <th></th>
                                 </tr>
                               </thead>
@@ -66,13 +66,7 @@ a.btn.btn-primary.side-menu-button{width:110px; margin-bottom: 50px;}
                                       <td> <?php echo $patients[$c]['gender']; ?></td></td>
                                       <td> 2018/4/12 </td>
                                       <td> stomache </td>
-                                      <td colspan="2" class="text-center">
-                                          <!--CK: Using json_encode allows the data to be encoded for better use in front end
-                                              CK: utilising HTML5 data-*** attribute to attach the data to the element
-                                            -->
-                                            <a type="button" class="btn btn-info" href="<?= base_url('index.php/patients/patient_record') ?>">Patient page</a>
-
-                                          </td>
+                                      <td style="padding:0px;"> <a class="btn btn-basic btn-sm" style="margin-top:4px;" href="<?= base_url('index.php/patients/patient_record') ?>"><u>Patient page</u> </a></td>
                                         </tr>
                                       <?php } ?>
 
