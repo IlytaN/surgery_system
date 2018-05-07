@@ -26,9 +26,14 @@ class SecretaryTimeslots extends CI_Controller
     }
     public function index()
     {
+		$this->load->helper("form");
+		$this->load->helper("url");
+		$this->load->model("Slot_Model");
+		$data['appointments'] = $this->Slot_Model->getAppointments();
+		
         $this->load->view('header');
-        $this->load->view('secretary');
-        $this->load->view('timeslots');
+        $this->load->view('secretary/secretary');
+        $this->load->view('secretary/timeslots', $data);
         $this->load->view('footer');
     }
 }

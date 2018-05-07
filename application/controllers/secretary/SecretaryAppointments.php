@@ -77,4 +77,40 @@ class SecretaryAppointments extends CI_Controller
 		$this->load->model("Slot_Model");
 		$this->Slot_Model->enter_appointment($Patientname, $Doctorname, $Starttime, $Finishtime, $Date, $Cost);
     }
+	
+	public function deleteappointment()
+    {
+		echo"Entered newappointment";
+		$this->load->helper("form");
+		$this->load->helper("url");
+
+		$Patientname = $this->input->post('patientNameNewAppointment');
+		$Starttime = $this->input->post('startlotNewAppointment');
+		$Date = $this->input->post('Date');
+	    
+		$this->load->helper("form");
+		$this->load->helper("url");
+		$this->load->model("Slot_Model");
+		$this->Slot_Model->delete_appointment($Patientname, $Starttime, $Date);
+    }
+	
+	public function updateappointment()
+    {
+		echo"Entered newappointment";
+		$this->load->helper("form");
+		$this->load->helper("url");
+
+		$Patientname = $this->input->post('patientNameNewAppointment');
+		$Starttime = $this->input->post('startlotNewAppointment');
+		$Date = $this->input->post('Date');
+		$Doctorname = $this->input->post('doctorNameNewAppointment');
+		$newStarttime = $this->input->post('newstartlotNewAppointment');
+		$Finishtime = $this->input->post('newfinishSelectNewAppointment');
+		$newDate = $this->input->post('newDate');
+	    
+		$this->load->helper("form");
+		$this->load->helper("url");
+		$this->load->model("Slot_Model");
+		$this->Slot_Model->update_appointment($Patientname, $Starttime, $Date, $Doctorname, $newStarttime, $Finishtime, $newDate);
+    }
 }

@@ -12,13 +12,6 @@
 			//Used to open database
 			$this->load->database();
 			
-			//$date7 = $this->db->query("SELECT DATE_ADD('$date_entered', INTERVAL 7 DAY)");
-			
-			//$date7->result_array();
-			//echo "<pre>";
-			//print_r($date7->result_array());
-			//echo "</pre>";
-			
 			//Used to get a week of slots need to fix it
 			//$query = $this->db->query("SELECT * FROM Slot WHERE SlotDate BETWEEN '$date_entered' AND '$date7' ORDER BY start_time");
 			
@@ -30,19 +23,6 @@
 			//print_r($query->result_array());
 			//echo "</pre>";
 			return $query->result_array();
-			
-			/*
-			if ($query->num_rows() > 0) {
-				// output data of each row
-				while($row = $query->result()) {
-					echo "SlotId: " . $row["SlotId"]. " - DocId: " . $row["DocId"]. " - Slot Date: " . $row["SlotDate"]. " - Start time: " . $row["start_time"]." - Finish time: " . $row["finish_time"]." - Cost: " . $row["cost"]."<br>";
-				}
-			} 
-			else 
-			{
-				echo "0 results";
-			}
-			*/
 		}
 		
 		//Used to return all patients
@@ -72,9 +52,7 @@
 			echo"entered return_patient";
 			$date = $this->input->post('date');
 			echo "</br>";
-			//echo $date;
-			//echo $date_entered;
-			//echo $date_entered;
+
 			//Used to open database
 			$this->load->database();
 			
@@ -93,18 +71,18 @@
 			$this->load->database();
 			echo"In enter_appointment";
 			echo"</br>";
-			
-			/*
-			$Doctorname = "David Kane";
-			$Patientname = "Sarah Connor";
-			$Starttime = "9:00";
-			$Finishtime = "9:30";
-			$Date = "2018-01-28";
-			$Cost = 60;
-			*/
 			echo($Doctorname);
 			
-			$con = mysqli_connect("localhost", "root", "", "surgtest");
+			/*
+			$Patientname = "Conor Bourke";
+			$Doctorname = "David Kane";
+			$Starttime = "09:00";
+			$Finishtime = "09:30";
+			$Date = "2018-05-08";
+			$Cost = 60;
+			*/
+			
+			$con = mysqli_connect("localhost", "root", "", "surgery");
 			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
 			$result = mysqli_query($con, $sql);
 			$rs = mysqli_fetch_array($result);	
@@ -114,12 +92,19 @@
 			$result = mysqli_query($con, $sql);
 			$rowcount=mysqli_num_rows($result);
 			
+			$query = $this->db->query( "SELECT DocId FROM slot WHERE DocId Like '$DocId' and SlotDate like'$Date' and start_time like'$Starttime' and finish_time like '$Finishtime'");
+			$query->result_array();
+			
+			echo "<pre>";
+			print_r($query->result_array());
+			echo "</pre>";
 			//To check if the time slot is already taken 
 			if($rowcount > 0){
 				echo"Already exists";
 			}
 			else
 			{
+				echo"Does not exist";
 				$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
 				$result = mysqli_query($con, $sql);
 				$rs = mysqli_fetch_array($result);
@@ -153,36 +138,74 @@
 		//Function used to enter a slot into the slot table
 		function enter_slot($SlotId_entered, $DocId_entered, $SlotDate_entered, $Starttime_entered, $Finishtime_entered, $Cost_entered){
 			$this->load->database();
-			/*
-			$data = array(
-				'SlotId'=>$SlotId_entered,
-				'DocId'=>$DocId_entered,
-				'SlotDate'=>$SlotDate_entered,
-				'start_time'=>$Starttime_entered,
-				'finish_time'=>$Finishtime_entered,
-				'cost'=>$Cost_entered
-			);
-			
-			$this->db->insert('slot',$data);
-			*/
 			echo"In enter_slot";
 			echo"</br>";
 			echo($SlotId_entered);
 			$query = $this->db->query("INSERT INTO slot VALUES('$SlotId_entered', '$DocId_entered', '$SlotDate_entered', '$Starttime_entered', '$Finishtime_entered', '$Cost_entered')");
 		}
 		
-		function delete_slot($Id){
-			echo"entered delete_slot";
+		function delete_appointment($Patientname, $Starttime, $Date){
+			echo"entered delete_appointment";
 			$this->load->database();
 			
-			$query = $this->db->query("DELETE FROM Slot WHERE SlotId = '$Id'");
+			$con = mysqli_connect("localhost", "root", "", "surgery");
+		    $sql = "SELECT DocId FROM slot WHERE SlotDate Like '$Date' AND start_time like '$Starttime'";
+			//$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);	
+			$DocId = $rs['DocId'];
+			echo"This is docid".$DocId;
+			echo"</br>";
+			
+			$query = $this->db->query("SELECT SlotId FROM slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time Like '$Starttime'");
+			$query->result_array();
+			
+			echo "<pre>";
+			print_r($query->result_array());
+			echo "</pre>";
+			
+			$sql = "SELECT SlotId FROM slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time Like '$Starttime'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);
+			$SlotId = $rs['SlotId'];
+			echo"This is Slotid".$SlotId;
+			
+			$sql = "SELECT PatId FROM patients WHERE PatName Like '$Patientname'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);	
+			$PatId = $rs['PatId'];
+			echo"This is patid".$PatId;
+			
+			$query = $this->db->query("DELETE FROM Slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time Like '$Starttime'");
+			$query = $this->db->query("DELETE FROM appointments WHERE SlotId Like '$SlotId' AND PatId Like '$PatId'");
 		}
 		
-		function update_slot($Id, $DocId, $SlotDate, $Starttime, $Finishtime, $Cost){
+		function update_appointment($Patientname, $Starttime, $Date, $Doctorname, $newStarttime, $Finishtime, $newDate){
 			echo"entered update_slot";
 			$this->load->database();
 			
-			$query = $this->db->query("UPDATE Slot SET DocId = '$DocId', SlotDate = '$SlotDate', start_time = '$Starttime', finish_time = '$Finishtime', cost = '$Cost' WHERE SlotId = '$Id'");
+			$con = mysqli_connect("localhost", "root", "", "surgery");
+			
+			$sql = "SELECT DocId FROM slot WHERE SlotDate Like '$Date' AND start_time like '$Starttime'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);
+			$OldDocId = $rs['DocId'];
+			echo"This is Olddocid ".$OldDocId;
+			
+			//Get new doctors id
+			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);
+			$DocId = $rs['DocId'];
+			echo"This is docid ".$DocId;
+			
+			$sql = "SELECT SlotId FROM slot WHERE DocId Like '$OldDocId' AND SlotDate Like '$Date' AND start_time Like '$Starttime'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);
+			$SlotId = $rs['SlotId'];
+			echo"This is Slotid".$SlotId;
+			
+			$query = $this->db->query("UPDATE Slot SET DocId = '$DocId', SlotDate = '$newDate', start_time = '$newStarttime', finish_time = '$Finishtime' WHERE SlotId = '$SlotId'");
 		}
 	}
 ?>
