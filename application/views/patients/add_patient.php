@@ -151,6 +151,9 @@ input.form-check-input{
               <div >Address:
                 <p><input placeholder="address" oninput="this.className = ''" name="phone"> </p>
               </div>
+              <div >Insurance:
+                <p><input placeholder="Insurance" oninput="this.className = ''" name="phone"> </p>
+              </div>
 </div>
               <div class="tab">
                 <h3>Medical Records</h3>
