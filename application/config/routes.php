@@ -49,6 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'main';
-$route['404_override'] = '';
+$route['default_controller'] = 'Login';
+//CK: this may be needed if some routes start to get messed up, although i think CI does a lot of this for you
+// CK: see- https://www.codeigniter.com/user_guide/general/routing.html
+//$route['secretaryappointments/newappointment']['POST'] = 'secretaryappointments/newappointment';
 $route['translate_uri_dashes'] = FALSE;
+
+
