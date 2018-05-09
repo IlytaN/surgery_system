@@ -1,6 +1,6 @@
 <?php
 	class Slot_Model extends CI_Model{
-		
+
 		function return_slot($date_entered){
 			echo"entered return_slot";
 			$date = $this->input->post('date');
@@ -104,7 +104,7 @@
 			*/
 			echo($Doctorname);
 
-			$con = mysqli_connect("localhost", "root", "", "surgtest");
+			$con = mysqli_connect("localhost", "root", "", "surgery");
 			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
 			$result = mysqli_query($con, $sql);
 			$rs = mysqli_fetch_array($result);

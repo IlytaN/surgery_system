@@ -38,7 +38,7 @@ class SecretaryPatients extends CI_Controller
         $this->load->view('menu/footer');
     }
 
-// get patient records
+    // get patient records
     public function show_patient_details($p_id){
       $this->load->model('Patients_model');
         // create the data object
@@ -48,6 +48,24 @@ class SecretaryPatients extends CI_Controller
         $this->load->view('secretary/patients', $data);
         $this->load->view('menu/footer');
     }
+    // add a medical history
+      public function add_medical_history()
+      {
+            $this->load->model('Patients_model');
+                $insert_data=array(
+                  'MedHisId'=>"",
+                  'PatId' => $this->input->post('PatId'),
+                  'Allergies'=>$this->input->post('Allergies'),
+                  'Cancer'=>$this->input->post('Cancer'),
+                  'Depression'=>$this->input->post('Depression'),
+                  'Epilepsi'=>$this->input->post('Epilepsi'),
+                  'Heart_disease'=>$this->input->post('Heart_disease'),
+                  'Liver_disease'=>$this->input->post('Liver_disease'),
+                  'Diabetes'=>$this->input->post('Diabetes'),
+                  'High_blood_pressure'=>$this->input->post('High_blood_pressure'),
+                  'other_problems'=>$this->input->post('other_problems'));
+                $this->Patients_model->addMedicalHistory($insert_data);
+      }
 
     // add a new patient
       public function add_patient()

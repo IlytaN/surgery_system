@@ -20,9 +20,9 @@ class DoctorAppointments extends CI_Controller
         parent::__construct();
         $this->load->library(array('session'));
         $this->load->helper(array('url'));
-//        $this->load->helper('form');
-//        $this->load->library('form_validation');
-//        $this->load->model('User_model');
+         $this->load->helper('form');
+         $this->load->library('form_validation');
+         $this->load->model('User_model');
     }
     public function index()
     {
@@ -30,10 +30,12 @@ class DoctorAppointments extends CI_Controller
     }
     public function appointments(){
         // create the data object
-        $data = new stdClass();
+        // $data = new stdClass();
+        $this->load->model('Appointments_model');
+        $data['appointment'] = $this->Appointments_model->getAppointments();
         $this->load->view('menu/header');
         $this->load->view('doctor/doctor');
-        $this->load->view('doctor/appointments');  // must contain table data
+        $this->load->view('doctor/appointments',$data);  // must contain table data
         $this->load->view('menu/footer');
     }
 }

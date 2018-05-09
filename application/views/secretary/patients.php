@@ -168,6 +168,9 @@
                             <!-- QH: This is to try "add patient" function -->
                             <button class="btn btn-default" id="addPatientBtn">Add patient
                             </button>
+                            <!-- QH: This is to try "add patient medical records" function -->
+                            <button class="btn btn-default" id="addHistoryBtn">Add medical history
+                            </button>
 
                         </td>
                     </tr>
@@ -201,6 +204,18 @@
         $('#addPatientBtn').click(function () {
             // collect form data
             $.post("SecretaryPatients/add_patient", {PatName: "Ciaran", PatBirthDate: "1960-03-05", PatGender: "Male", PatAddress: "Dublin"})
+                .done(function (resp) {
+                    console.log(resp)
+                });
+        })
+
+        // QH: Add a patient medical history
+        // QH to Catherine: please make it so that the secretary can only enter medical history one time (after she inserts new patient info). Otherwise
+        // ...there would be many repeated medical history for a unique patient.
+        $('#addHistoryBtn').click(function () {
+            // collect form data
+            $.post("SecretaryPatients/add_medical_history", {PatId: "11", Allergies: "squid", Cancer: "N", Depression: "N", Epilepsi:"N", Heart_disease:"Y",
+                                                            Liver_disease:"Y", Diabetes: "N", High_blood_pressure:"N", other_problems: "stomach problem"})
                 .done(function (resp) {
                     console.log(resp)
                 });
