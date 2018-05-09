@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="patientNameNewAppointment" class="control-label col-md-3">Patient Name:</label>
                         <div class="col-md-9">
-                            <select id="patientNameNewAppointment" class="selectpicker" data-live-search="true">
+                            <select id="patientNameNewAppointment" name="patientNameNewAppointment" class="selectpicker" data-live-search="true">
                                 <!-- CK: pulling data form dummy data in the backend  -->
                                 <!-- CK: looping over the data and creating the option element - values are just the
                                          indexes of the array for now, but could be replaced by specific patient IDs
@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="timeslotNewAppointment" class="control-label col-md-3">Preferred Time Slot:</label>
                         <div class="col-md-9">
-                            <select id="timeslotNewAppointment" class="selectpicker">
+                            <select id="timeslotNewAppointment" name="timeslotNewAppointment" class="selectpicker">
                                 <option value="1">09:00</option>
                                 <option value="1">09:30</option>
                                 <option value="1">10:00</option>
@@ -277,7 +277,6 @@
             }
         });
 
-
         $('#newAppointmentModal').on('show.bs.modal', function (event) {
             // do stuff
         });
@@ -288,8 +287,8 @@
             var recipient = button.data('viewpatient'); // Extract info from data-* attributes
             var modal = $(this);
 
-            var startTime = new Date(editingAppointmentData.start)
-            var endTime = new Date(editingAppointmentData.end)
+            var startTime = new Date(editingAppointmentData.start);
+            var endTime = new Date(editingAppointmentData.end);
 
             modal.find('.modal-title').text('Patient: ' + editingAppointmentData.title);
             modal.find('#patientNameEditAppointment').val(editingAppointmentData.title);
@@ -302,8 +301,12 @@
 
             // CK: getting a range issue with Jquery on the standard obj... can just cast into a more friendly version here
             var fdata = {
-                name: editingAppointmentData.title
+                name: editingAppointmentData.title,
+                start: editingAppointmentData.start
             };
+
+            // TODO: need to know what the rest of the values are? !
+
             $.post("secretaryappointments/updateappointment", fdata)
                 .done(function (resp) {
                     console.log(resp)
@@ -332,7 +335,7 @@
         $('#newAppointmentBtn').click(function () {
 
             // collect form data
-            var fdata = $("#newAppointment").serializeArray();
+            var fdata = $("#newAppointment").serializeArray(); // This collects the form and submits it as a array.
             $.post("secretaryappointments/newappointment", fdata)
                 .done(function (resp) {
                     console.log(resp)
