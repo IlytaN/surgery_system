@@ -72,6 +72,15 @@ class SecretaryAppointments extends CI_Controller
 		$Date = $this->input->post('Date');
 		$Cost = $this->input->post('Cost');
 		
+		/*
+		$Patientname = "Conor Bourke";
+		$Doctorname = "David Kane";
+		$Starttime = "09:00";
+		$Finishtime = "09:30";
+		$Date = "2018-05-06";
+		$Cost = 60;
+		*/
+		
 		$this->load->helper("form");
 		$this->load->helper("url");
 		$this->load->model("Slot_Model");
@@ -122,6 +131,7 @@ class SecretaryAppointments extends CI_Controller
 
 		$Patientname = $this->input->post('patientNamePayAppointment');
 		$Starttime = $this->input->post('oldstartlotDelAppointment');
+		$Doctorname = $this->input->post('doctorNameNewAppointment');
 		$AppointmentDate = $this->input->post('ADate');
 		$PaymentDate = $this->input->post('PDate');
 		$PaymentType = $this->input->post('PayType');
@@ -129,6 +139,6 @@ class SecretaryAppointments extends CI_Controller
 		$this->load->helper("form");
 		$this->load->helper("url");
 		$this->load->model("Slot_Model");
-		$this->Slot_Model->addPayment($Patientname, $Starttime, $AppointmentDate, $PaymentDate, $PaymentType);
+		$this->Slot_Model->addPayment($Patientname, $Starttime, $Doctorname, $AppointmentDate, $PaymentDate, $PaymentType);
     }
 }

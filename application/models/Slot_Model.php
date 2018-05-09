@@ -25,15 +25,8 @@
 			return $query->result_array();
 		}
 		
-		function addPayment($Patientname, $Starttime, $AppointmentDate, $PaymentDate, $PaymentType){
+		function addPayment($Patientname, $Starttime, $Doctorname, $AppointmentDate, $PaymentDate, $PaymentType){
 			$this->load->database();
-			
-			$Patientname = "Conor Bourke";
-			$Doctorname = "Jason Smith";
-			$Starttime = "09:00";
-			$AppointmentDate = "2018-05-10";
-			$PaymentDate = "2018-05-10";
-			$PaymentType = "Cash";
 			
 			$con = mysqli_connect("localhost", "root", "", "surgery");
 		    $sql = "SELECT PatId FROM patients WHERE PatName = '$Patientname'";

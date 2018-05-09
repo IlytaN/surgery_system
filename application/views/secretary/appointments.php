@@ -111,6 +111,76 @@
     </div>
 </div>
 
+<div class="modal" id="DeleteAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" id="exampleModalLabel">Delete Appointment</h3>
+            </div>
+
+            <!-- TODO: trigger the display of EDIT or VIEW in JS and avoid Over complication with PHP views -->
+            <div class="modal-body">
+                <!-- inits the form and add the right class -->
+                <?= form_open('secretary/secretaryappointments/newappointment',
+                    array('class' => 'form-horizontal', 'id' => 'newAppointment')); ?>
+                <div class="form-group">
+                    <label for="patientNameDelAppointment" class="control-label col-md-3">Patient Name:</label>
+                    <div class="col-md-9">
+                        <select id="patientNameDelAppointment" name="pn" value="pn" class="selectpicker" data-live-search="true">
+                            <!-- CK: pulling data form dummy data in the backend  -->
+                            <!-- CK: looping over the data and creating the option element - values are just the
+                                     indexes of the array for now, but could be replcaed by specfic patient IDs
+                             -->
+                            <?php for ($c = 0; $c < count($patients); $c++) {
+                                echo '<option value="' . $c . '">' . $patients[$c]['PatName'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label for="startslotDelAppointment" class="control-label col-md-3">Start Time:</label>
+                    <div class="col-md-9">
+                        <select id="startlotDelAppointment" name="startt" value="startt" class="selectpicker">
+                            <option value="1">09:00</option>
+                            <option value="1">09:30</option>
+                            <option value="1">10:00</option>
+                            <option value="1">10:30</option>
+                            <option value="1">11:00</option>
+                            <option value="1">11:30</option>
+                            <option value="1">12:00</option>
+                            <option value="1">12:30</option>
+                            <option value="1">13:00</option>
+                            <option value="1">13:30</option>
+                            <option value="1">14:00</option>
+                            <option value="1">14:30</option>
+                            <option value="1">15:00</option>
+                            <option value="1">15:30</option>
+                            <option value="1">16:00</option>
+                            <option value="1">16:30</option>
+                            <option value="1">17:00</option>
+                            <option value="1">17:30</option>
+                        </select>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label for="message-text" class="control-label col-md-3">Date:</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="dates" id="delDate" placeholder="YYYY/MM/DD">
+					</div>
+                </div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="delAppointmentBtn" class="btn btn-primary">Delete</button>
+		   </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="AppointmentPaymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -136,6 +206,22 @@
                             <?php for ($c = 0; $c < count($patients); $c++) {
                                 echo '<option value="' . $c . '">' . $patients[$c]['PatName'] . '</option>';
                             }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label for="doctorNameNewAppointment" class="control-label col-md-3">Doctor Name:</label>
+                    <div class="col-md-9">
+                        <select id="doctorNameNewAppointment" name="dn" value="dn" class="selectpicker" data-live-search="true">
+                            <!-- CK: pulling data form dummy data in the backend  -->
+                            <!-- CK: looping over the data and creating the option element - values are just the
+                                     indexes of the array for now, but could be replcaed by specfic patient IDs
+                             -->
+                            <?php for ($c = 0; $c < count($doctors); $c++) {
+                                echo '<option value="' . $c . '">' . $doctors[$c]['DocName'] . '</option>';
+                            }
+								form_hidden('doctorname', 'johndoe');
                             ?>
                         </select>
                     </div>
@@ -327,11 +413,9 @@
 				</form>
             </div>
             <div class="modal-footer">
-                 <div class="modal-footer">
-                <button type="button" class=" pull-left btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" id="delAppointmentBtn2" class="btn btn-danger">Delete</button>
                 <button type="button" id="upAppointmentBtn" style="width: 30%;" class="btn btn-primary">Update</button>
-            </div>
 		   </div>
         </div>
     </div>
@@ -413,10 +497,11 @@
                 });
             },
 			
-			eventClick: function (event, element) {
+						eventClick: function (event, element) {
                 editingAppointmentData = event;
                 $('#UpdateAppointmentModal').modal();
             }
+
         })
 		
         $('#newAppointmentModal').on('show.bs.modal', function (event) {
@@ -427,32 +512,38 @@
         //CK: There might be a better PHP way of doing this
         $('#newAppointmentBtn').click(function () {
             // collect form data
+			
+			//var $inputs = $('#myForm :input');
+			/*
+			var pn = $('#DynamicValueAssignedHere').find('input[id="patientNameNewAppointment"]').val();
+			var dn = $('#DynamicValueAssignedHere').find('input[id="doctorNameNewAppointment"]').val();
+			var startt = $('#DynamicValueAssignedHere').find('input[id="startlotNewAppointment"]').val();
+			var finisht = $find('input[id="finishSelectNewAppointment"]').val();
+			var dates = $find('input[id="Date"]').val();
+			*/
+			
+			/*
+			var pn = $('#patientNameNewAppointment').val();
+			var dn = $('#doctorNameNewAppointment').val();
+			var startt = $('#startlotNewAppointment').val();
+			var finisht = $('#finishSelectNewAppointment').val();
+			var dates = $('#Date').val()
+			*/
 			//Used to get values from the selects
 			//https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
-			
 			var p = document.getElementById("patientNameNewAppointment");
 			var pn = p.options[p.selectedIndex].text;
 			
 			var d = document.getElementById("doctorNameNewAppointment");
 			var dn = d.options[d.selectedIndex].text;
 			
-			var s = document.getElementById("startlotDelAppointment");
+			var s = document.getElementById("startlotNewAppointment");
 			var startt = s.options[s.selectedIndex].text;
 			
 			var f = document.getElementById("finishSelectNewAppointment");
 			var finisht = f.options[f.selectedIndex].text;
 			
 			var dates = document.getElementById("Date").value;
-			
-			var pn = "Conor Bourke";
-			
-			var dn = "Jason Smith";
-			
-			var startt = "09:00";
-			
-			var finisht = "09:30"
-			
-			var dates = "2018-05-06";
 			/*
 			var data = {
 				Patientname: "Conor Bourke", 
@@ -465,6 +556,84 @@
 			*/
 			
             $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/newappointment", {patientNameNewAppointment: pn, doctorNameNewAppointment: dn, startlotNewAppointment: startt, finishSelectNewAppointment: finisht, Date: dates, Cost: 60})
+                .done(function (resp) {
+                    console.log(resp);
+                    //CK: This  will allow us to rerender the appointments once it returns true.-->
+                    //https://fullcalendar.io/docs/rerenderEvents
+
+                });
+        })
+		
+		$('#DeleteAppointmentModal').on('show.bs.modal', function (event) {
+            // do stuff
+			//window.open("https://www.w3schools.com");
+        })
+		
+		$('#delAppointmentBtn').click(function () {
+			var p = document.getElementById("patientNameDelAppointment");
+			var pn = p.options[p.selectedIndex].text;
+			
+			var s = document.getElementById("startlotDelAppointment");
+			var startt = s.options[s.selectedIndex].text;
+			
+			var dates = document.getElementById("delDate").value;
+			
+            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/deleteappointment", {patientNameNewAppointment: pn, startlotNewAppointment: startt, Date: dates})
+                .done(function (resp) {
+                    console.log(resp);
+                    //CK: This  will allow us to rerender the appointments once it returns true.-->
+                    //https://fullcalendar.io/docs/rerenderEvents
+
+                });
+        })
+		
+		$('#UpdateAppointmentModal').on('show.bs.modal', function (event) {
+            // do stuff
+			//window.open("https://www.w3schools.com");
+        })
+		
+		$('#upAppointmentBtn').click(function () {
+			
+			//Patients name
+			var p = document.getElementById("patientNameUpAppointment");
+			var pn = p.options[p.selectedIndex].text;
+			
+			//Old start time
+			var s = document.getElementById("oldstartlotDelAppointment");
+			var startt = s.options[s.selectedIndex].text;
+			
+			//Old date
+			var dates = document.getElementById("oldDate").value;
+			
+			//Doctors name
+			var d = document.getElementById("doctorNameUpAppointment");
+			var dn = d.options[d.selectedIndex].text;
+			
+			//New start time
+			var ns = document.getElementById("newstartlotNewAppointment");
+			var nstartt = ns.options[ns.selectedIndex].text;
+			
+			//New finish time
+			var f = document.getElementById("newfinishSelectNewAppointment");
+			var nfinisht = f.options[f.selectedIndex].text;
+			
+			//New date
+			var ndates = document.getElementById("newDate").value;
+			
+			/*
+			var pn = "Kim Fitzsimons";
+			var startt = "10:00";
+			var dates = "2018-05-07";
+			
+			var dn = "Laura Smith";
+			
+			var nstartt = "09:00";
+			var nfinisht = "09:30";
+			var ndates = "2018-05-07";
+			*/
+			
+			
+            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/updateappointment", {patientNameNewAppointment: pn, startlotNewAppointment: startt, Date: dates, doctorNameNewAppointment: dn, newstartlotNewAppointment: nstartt, newfinishSelectNewAppointment: nfinisht, newDate: ndates})
                 .done(function (resp) {
                     console.log(resp);
                     //CK: This  will allow us to rerender the appointments once it returns true.-->
@@ -549,18 +718,17 @@
 			var s = document.getElementById("oldstartlotDelAppointment");
 			var startt = s.options[s.selectedIndex].text;
 			
+			var d = document.getElementById("doctorNameNewAppointment");
+			var dn = d.options[d.selectedIndex].text;
+			
 			var dates = document.getElementById("ADate").value;
 			
 			var pdate = document.getElementById("PDate").value;
 			
 			var ptype = document.getElementById("PayType").value;
+		
 			
-			/*
-			var pn = "Sarah Connor";
-			var startt = "09:00";
-			var dates = "2018-05-08";
-			*/
-            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/deleteappointment", {patientNamePayAppointment: pn, oldstartlotDelAppointment: startt, ADate: dates, PDate: pdate, PayType: ptype})
+            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/payment", {patientNamePayAppointment: pn, oldstartlotDelAppointment: startt, doctorNameNewAppointment: dn, ADate: dates, PDate: pdate, PayType: ptype})
                 .done(function (resp) {
                     console.log(resp);
                     //CK: This  will allow us to rerender the appointments once it returns true.-->
