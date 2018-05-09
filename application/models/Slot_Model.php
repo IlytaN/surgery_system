@@ -25,6 +25,55 @@
 			return $query->result_array();
 		}
 		
+		function addPayment($Patientname, $Starttime, $AppointmentDate, $PaymentDate, $PaymentType){
+			$this->load->database();
+			
+			$Patientname = "Conor Bourke";
+			$Doctorname = "Jason Smith";
+			$Starttime = "09:00";
+			$AppointmentDate = "2018-05-10";
+			$PaymentDate = "2018-05-10";
+			$PaymentType = "Cash";
+			
+			$con = mysqli_connect("localhost", "root", "", "surgery");
+		    $sql = "SELECT PatId FROM patients WHERE PatName = '$Patientname'";
+			$result = mysqli_query($con, $sql);
+		    $rs = mysqli_fetch_array($result);
+		    $PatId = $rs['PatId'];
+			echo($PatId);
+			
+			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+			$result = mysqli_query($con, $sql);
+			$rs = mysqli_fetch_array($result);	
+			$DocId = $rs['DocId'];
+			
+			$sql = "SELECT SlotId FROM slot WHERE SlotDate = '$AppointmentDate' AND start_time = '$Starttime' AND DocId = '$DocId'";
+			$result = mysqli_query($con, $sql);
+		    $rs = mysqli_fetch_array($result);
+		    $SlotId = $rs['SlotId'];
+			echo($SlotId);
+			
+			$sql = "SELECT AppId FROM appointments WHERE SlotId = '$SlotId' AND PatId = '$PatId'";
+			$result = mysqli_query($con, $sql);
+		    $rs = mysqli_fetch_array($result);
+		    $AppId = $rs['AppId'];
+			echo("This is appId".$AppId);
+			
+			$sql = "SELECT payer FROM Payment WHERE payment_date = '$PaymentDate' and payer = '$Patientname'";
+			$result = mysqli_query($con, $sql);
+			$rowcount=mysqli_num_rows($result);
+			
+			//To check if the payment entered already exists(So we dont have duplicates)
+			if($rowcount > 0)
+			{
+				echo"Already exists";
+			}
+			else
+			{
+				$query = $this->db->query("INSERT INTO Payment (AppId, payer, payment_method, payment_date) VALUES('$AppId', '$Patientname', '$PaymentType', '$PaymentDate')");
+			}
+		}
+		
 		//Used to return all patients
 		function getPatients(){
 			$this->load->database();

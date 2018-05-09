@@ -111,13 +111,13 @@
     </div>
 </div>
 
-<div class="modal" id="DeleteAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="AppointmentPaymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title" id="exampleModalLabel">Delete Appointment</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Payment</h3>
             </div>
 
             <!-- TODO: trigger the display of EDIT or VIEW in JS and avoid Over complication with PHP views -->
@@ -126,9 +126,9 @@
                 <?= form_open('secretary/secretaryappointments/newappointment',
                     array('class' => 'form-horizontal', 'id' => 'newAppointment')); ?>
                 <div class="form-group">
-                    <label for="patientNameDelAppointment" class="control-label col-md-3">Patient Name:</label>
+                    <label for="patientNamePayAppointment" class="control-label col-md-3">Patient Name:</label>
                     <div class="col-md-9">
-                        <select id="patientNameDelAppointment" name="pn" value="pn" class="selectpicker" data-live-search="true">
+                        <select id="patientNamePayAppointment" name="pn" value="pn" class="selectpicker" data-live-search="true">
                             <!-- CK: pulling data form dummy data in the backend  -->
                             <!-- CK: looping over the data and creating the option element - values are just the
                                      indexes of the array for now, but could be replcaed by specfic patient IDs
@@ -141,9 +141,9 @@
                     </div>
                 </div>
 				<div class="form-group">
-                    <label for="startslotDelAppointment" class="control-label col-md-3">Start Time:</label>
+                    <label for="startslotAppointment" class="control-label col-md-3">Start Time:</label>
                     <div class="col-md-9">
-                        <select id="startlotDelAppointment" name="startt" value="startt" class="selectpicker">
+                        <select id="startlotAppointment" name="startt" value="startt" class="selectpicker">
                             <option value="1">09:00</option>
                             <option value="1">09:30</option>
                             <option value="1">10:00</option>
@@ -166,16 +166,28 @@
                     </div>
                 </div>
 				<div class="form-group">
-                    <label for="message-text" class="control-label col-md-3">Date:</label>
+                    <label for="message-text" class="control-label col-md-3">Appointment Date:</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="dates" id="delDate" placeholder="YYYY/MM/DD">
+                        <input type="text" class="form-control" name="dates" id="ADate" placeholder="YYYY/MM/DD">
+					</div>
+                </div>
+				<div class="form-group">
+                    <label for="message-text" class="control-label col-md-3">Payment Date:</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="dates" id="PDate" placeholder="YYYY/MM/DD">
+					</div>
+                </div>
+					<div class="form-group">
+                    <label for="message-text" class="control-label col-md-3">Payment Type:</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="dates" id="PayType" placeholder="Cash/Credit card">
 					</div>
                 </div>
 				</form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" id="delAppointmentBtn" class="btn btn-primary">Delete</button>
+                <button type="button" id="addPaymentBtn" class="btn btn-primary">Add</button>
 		   </div>
         </div>
     </div>
@@ -315,8 +327,11 @@
 				</form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" id="upAppointmentBtn" class="btn btn-primary">Update</button>
+                 <div class="modal-footer">
+                <button type="button" class=" pull-left btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="delAppointmentBtn2" class="btn btn-danger">Delete</button>
+                <button type="button" id="upAppointmentBtn" style="width: 30%;" class="btn btn-primary">Update</button>
+            </div>
 		   </div>
         </div>
     </div>
@@ -334,11 +349,8 @@
                     <button class="btn btn-primary" data-toggle="modal" data-target="#newAppointmentModal" id="NewApp">New
                         Appointment
                     </button>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#DeleteAppointmentModal" id="NewApp">Delete
-                        Appointment
-                    </button>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#UpdateAppointmentModal" id="NewApp">Update
-                        Appointment
+					<button class="btn btn-primary" data-toggle="modal" data-target="#AppointmentPaymentModal" id="NewApp">Add
+                        Payment
                     </button>
                 </div>
             </div>
@@ -401,13 +413,10 @@
                 });
             },
 			
-			eventClick: function(calEvent, jsEvent, view) {
-				//document.getElementById("DeleteAppointmentModal").innerHTML
-				//document.getElementById("NewApp").click();
-				alert('Event: ' + calEvent.title);
-				alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-				alert('View: ' + view.name);
-			}
+			eventClick: function (event, element) {
+                editingAppointmentData = event;
+                $('#UpdateAppointmentModal').modal();
+            }
         })
 		
         $('#newAppointmentModal').on('show.bs.modal', function (event) {
@@ -470,20 +479,25 @@
                 });
         })
 		
-		$('#DeleteAppointmentModal').on('show.bs.modal', function (event) {
+		$('#UpdateAppointmentModal').on('show.bs.modal', function (event) {
             // do stuff
 			//window.open("https://www.w3schools.com");
         })
 		
-		$('#delAppointmentBtn').click(function () {
-			var p = document.getElementById("patientNameDelAppointment");
+		$('#delAppointmentBtn2').click(function () {
+			var p = document.getElementById("patientNameUpAppointment");
 			var pn = p.options[p.selectedIndex].text;
 			
-			var s = document.getElementById("startlotDelAppointment");
+			var s = document.getElementById("oldstartlotDelAppointment");
 			var startt = s.options[s.selectedIndex].text;
 			
-			var dates = document.getElementById("delDate").value;
+			var dates = document.getElementById("oldDate").value;
 			
+			/*
+			var pn = "Sarah Connor";
+			var startt = "09:00";
+			var dates = "2018-05-08";
+			*/
             $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/deleteappointment", {patientNameNewAppointment: pn, startlotNewAppointment: startt, Date: dates})
                 .done(function (resp) {
                     console.log(resp);
@@ -493,13 +507,7 @@
                 });
         })
 		
-		$('#UpdateAppointmentModal').on('show.bs.modal', function (event) {
-            // do stuff
-			//window.open("https://www.w3schools.com");
-        })
-		
 		$('#upAppointmentBtn').click(function () {
-			
 			//Patients name
 			var p = document.getElementById("patientNameUpAppointment");
 			var pn = p.options[p.selectedIndex].text;
@@ -526,20 +534,39 @@
 			//New date
 			var ndates = document.getElementById("newDate").value;
 			
-			/*
-			var pn = "Kim Fitzsimons";
-			var startt = "10:00";
-			var dates = "2018-05-07";
-			
-			var dn = "Laura Smith";
-			
-			var nstartt = "09:00";
-			var nfinisht = "09:30";
-			var ndates = "2018-05-07";
-			*/
-			
 			
             $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/updateappointment", {patientNameNewAppointment: pn, startlotNewAppointment: startt, Date: dates, doctorNameNewAppointment: dn, newstartlotNewAppointment: nstartt, newfinishSelectNewAppointment: nfinisht, newDate: ndates})
+                .done(function (resp) {
+                    console.log(resp);
+                    //CK: This  will allow us to rerender the appointments once it returns true.-->
+                    //https://fullcalendar.io/docs/rerenderEvents
+
+                });
+        })
+		
+		$('#AppointmentPaymentModal').on('show.bs.modal', function (event) {
+            // do stuff
+        })
+		
+		$('#addPaymentBtn').click(function () {
+			var p = document.getElementById("patientNamePayAppointment");
+			var pn = p.options[p.selectedIndex].text;
+			
+			var s = document.getElementById("oldstartlotDelAppointment");
+			var startt = s.options[s.selectedIndex].text;
+			
+			var dates = document.getElementById("ADate").value;
+			
+			var pdate = document.getElementById("PDate").value;
+			
+			var ptype = document.getElementById("PayType").value;
+			
+			/*
+			var pn = "Sarah Connor";
+			var startt = "09:00";
+			var dates = "2018-05-08";
+			*/
+            $.post("http://localhost/surgery_system/index.php/secretary/SecretaryAppointments/deleteappointment", {patientNamePayAppointment: pn, oldstartlotDelAppointment: startt, ADate: dates, PDate: pdate, PayType: ptype})
                 .done(function (resp) {
                     console.log(resp);
                     //CK: This  will allow us to rerender the appointments once it returns true.-->

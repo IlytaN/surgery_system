@@ -113,4 +113,22 @@ class SecretaryAppointments extends CI_Controller
 		$this->load->model("Slot_Model");
 		$this->Slot_Model->update_appointment($Patientname, $Starttime, $Date, $Doctorname, $newStarttime, $Finishtime, $newDate);
     }
+	
+	public function payment()
+    {
+		echo"Entered payment";
+		$this->load->helper("form");
+		$this->load->helper("url");
+
+		$Patientname = $this->input->post('patientNamePayAppointment');
+		$Starttime = $this->input->post('oldstartlotDelAppointment');
+		$AppointmentDate = $this->input->post('ADate');
+		$PaymentDate = $this->input->post('PDate');
+		$PaymentType = $this->input->post('PayType');
+	    
+		$this->load->helper("form");
+		$this->load->helper("url");
+		$this->load->model("Slot_Model");
+		$this->Slot_Model->addPayment($Patientname, $Starttime, $AppointmentDate, $PaymentDate, $PaymentType);
+    }
 }
