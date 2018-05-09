@@ -427,25 +427,9 @@
         //CK: There might be a better PHP way of doing this
         $('#newAppointmentBtn').click(function () {
             // collect form data
-			
-			//var $inputs = $('#myForm :input');
-			/*
-			var pn = $('#DynamicValueAssignedHere').find('input[id="patientNameNewAppointment"]').val();
-			var dn = $('#DynamicValueAssignedHere').find('input[id="doctorNameNewAppointment"]').val();
-			var startt = $('#DynamicValueAssignedHere').find('input[id="startlotNewAppointment"]').val();
-			var finisht = $find('input[id="finishSelectNewAppointment"]').val();
-			var dates = $find('input[id="Date"]').val();
-			*/
-			
-			/*
-			var pn = $('#patientNameNewAppointment').val();
-			var dn = $('#doctorNameNewAppointment').val();
-			var startt = $('#startlotNewAppointment').val();
-			var finisht = $('#finishSelectNewAppointment').val();
-			var dates = $('#Date').val()
-			*/
 			//Used to get values from the selects
 			//https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
+			
 			var p = document.getElementById("patientNameNewAppointment");
 			var pn = p.options[p.selectedIndex].text;
 			
@@ -459,6 +443,16 @@
 			var finisht = f.options[f.selectedIndex].text;
 			
 			var dates = document.getElementById("Date").value;
+			
+			var pn = "Conor Bourke";
+			
+			var dn = "Jason Smith";
+			
+			var startt = "09:00";
+			
+			var finisht = "09:30"
+			
+			var dates = "2018-05-06";
 			/*
 			var data = {
 				Patientname: "Conor Bourke", 
