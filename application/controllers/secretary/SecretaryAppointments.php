@@ -33,7 +33,6 @@ class SecretaryAppointments extends CI_Controller
 
     public function appointments()
     {
-
         $this->load->helper("form");
         $this->load->helper("url");
         $this->load->model("Slot_Model");
@@ -49,12 +48,10 @@ class SecretaryAppointments extends CI_Controller
 
     public function newappointment()
     {
-        echo "Entered newappointment";
         // CK handles all the backend for creating an appointment - dummy so that the AJAX request can be made in teh JS
         /* TC https://stackoverflow.com/questions/35475856/passing-data-from-view-to-controller-codeigniter
          where i learned how to pass variables using a url
          */
-
         $this->load->helper("form");
         $this->load->helper("url");
 
@@ -62,8 +59,8 @@ class SecretaryAppointments extends CI_Controller
         $Doctorname = $this->input->post('doctorNameNewAppointment');
         $Starttime = $this->input->post('startlotNewAppointment');
         $Finishtime = $this->input->post('finishSelectNewAppointment');
-        $Date = $this->input->post('Date');
-        $Cost = $this->input->post('Cost');
+        $Date = $this->input->post('date');
+        $Cost = 60;//$this->input->post('Cost');
 
         $this->load->helper("form");
         $this->load->helper("url");
@@ -72,7 +69,7 @@ class SecretaryAppointments extends CI_Controller
 
 
         // returns the success or failure.
-        $return = array('status' => true);
+        $return = $this->Slot_Model->enter_appointment($Patientname, $Doctorname, $Starttime, $Finishtime, $Date, $Cost);
         $this->output->set_content_type("application/json")->set_output(json_encode($return));
     }
 

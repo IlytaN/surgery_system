@@ -98,8 +98,7 @@ class Slot_Model extends CI_Model
     {
         $this->load->database();
 
-
-        $con = mysqli_connect("localhost", "root", "", "surgtest");
+        $con = mysqli_connect("localhost", "root", "root", "surgery");
         $sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
         $result = mysqli_query($con, $sql);
         $rs = mysqli_fetch_array($result);
@@ -136,6 +135,8 @@ class Slot_Model extends CI_Model
             $SlotId = $rs['SlotId'];
 
             $query = $this->db->query("INSERT INTO Appointments (PatId, SlotId) VALUES('$PatId', $SlotId)");
+            $r = $this->getAppointments();
+            return $r;
         }
     }
 
