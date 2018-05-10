@@ -5,33 +5,18 @@ class Slot_Model extends CI_Model
 
     function return_slot($date_entered)
     {
-        echo "entered return_slot";
         $date = $this->input->post('date');
-        echo "</br>";
-        echo $date;
-        echo $date_entered;
 
-        //echo $date_entered;
         //Used to open database
         $this->load->database();
 
-        //$date7 = $this->db->query("SELECT DATE_ADD('$date_entered', INTERVAL 7 DAY)");
-
-        //$date7->result_array();
-        //echo "<pre>";
-        //print_r($date7->result_array());
-        //echo "</pre>";
 
         //Used to get a week of slots need to fix it
         //$query = $this->db->query("SELECT * FROM Slot WHERE SlotDate BETWEEN '$date_entered' AND '$date7' ORDER BY start_time");
-
         //Used to get a single day of appointments
         $query = $this->db->query("SELECT * FROM Slot WHERE SlotDate like '$date_entered' ORDER BY start_time");
         $query->result_array();
 
-        //echo "<pre>";
-        //print_r($query->result_array());
-        //echo "</pre>";
         return $query->result_array();
 
         /*
@@ -52,7 +37,7 @@ class Slot_Model extends CI_Model
     function getPatients()
     {
         $this->load->database();
-        $query = $this->db->query("SELECT * FROM patients");
+        $query = $this->db->query("SELECT * FROM Patients");
         $query->result_array();
         return $query->result_array();
     }
@@ -69,8 +54,15 @@ class Slot_Model extends CI_Model
     function getAppointments()
     {
         $this->load->database();
-        $query = $this->db->query("SELECT SlotDate, PatName, DocName, start_time FROM appointments JOIN patients using(PatId) JOIN slot using(SlotId) JOIN doctors using(DocId)");
+        $query = $this->db->query("SELECT SlotId, DocId, SlotDate,PatId, PatName, DocName, start_time, finish_time FROM appointments JOIN patients using(PatId) JOIN slot using(SlotId) JOIN doctors using(DocId)");
         $query->result_array();
+        return $query->result_array();
+    }
+
+    function getAppointmentById($Id)
+    {
+        $this->load->database();
+        $query = $this->db->query("SELECT * FROM Slot WHERE SlotID = '$Id'");
         return $query->result_array();
     }
 
@@ -95,22 +87,17 @@ class Slot_Model extends CI_Model
         return $query->result_array();
     }
 
+    function update_appointment($PatId, $DocId, $Starttime, $Endtiem, $Date)
+    {
+        $this->load->database();
+
+    }
+
     //Function used to enter a slot into the slot table
     function enter_appointment($Patientname, $Doctorname, $Starttime, $Finishtime, $Date, $Cost)
     {
         $this->load->database();
-        echo "In enter_appointment";
-        echo "</br>";
 
-        /*
-        $Doctorname = "David Kane";
-        $Patientname = "Sarah Connor";
-        $Starttime = "9:00";
-        $Finishtime = "9:30";
-        $Date = "2018-01-28";
-        $Cost = 60;
-        */
-        echo($Doctorname);
 
         $con = mysqli_connect("localhost", "root", "", "surgtest");
         $sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
@@ -132,15 +119,12 @@ class Slot_Model extends CI_Model
             // Used to store the doctors id to be used in another query
             // https://stackoverflow.com/questions/28634852/how-to-store-a-variable-from-a-sql-query-php
             $DocId = $rs['DocId'];
-            echo($DocId);
-            echo "</br>";
 
             //Used to get the patients id to be inserted into the appointment table
             $sql = "SELECT PatId FROM patients WHERE PatName Like '$Patientname'";
             $result = mysqli_query($con, $sql);
             $rs = mysqli_fetch_array($result);
             $PatId = $rs['PatId'];
-            echo($PatId);
 
             //Inserts the information into the table slot
             $query = $this->db->query("INSERT INTO slot (DocID, SlotDate, start_time, finish_time, cost) VALUES('$DocId', '$Date', '$Starttime', '$Finishtime', '$Cost')");
@@ -150,7 +134,6 @@ class Slot_Model extends CI_Model
             $result = mysqli_query($con, $sql);
             $rs = mysqli_fetch_array($result);
             $SlotId = $rs['SlotId'];
-            echo($SlotId);
 
             $query = $this->db->query("INSERT INTO Appointments (PatId, SlotId) VALUES('$PatId', $SlotId)");
         }
@@ -172,26 +155,26 @@ class Slot_Model extends CI_Model
 
         $this->db->insert('slot',$data);
         */
-        echo "In enter_slot";
-        echo "</br>";
-        echo($SlotId_entered);
+
         $query = $this->db->query("INSERT INTO slot VALUES('$SlotId_entered', '$DocId_entered', '$SlotDate_entered', '$Starttime_entered', '$Finishtime_entered', '$Cost_entered')");
+
+        //CK: query success? -> drives the frontend validation and confirmation menus.... TODO
     }
 
     function delete_slot($Id)
     {
-        echo "entered delete_slot";
         $this->load->database();
-
-        $query = $this->db->query("DELETE FROM Slot WHERE SlotId = '$Id'");
+        $this->db->query("DELETE FROM Slot WHERE SlotId = '$Id'");
+        $query = $this->getAppointments();
+        return $query;
     }
 
     function update_slot($Id, $DocId, $SlotDate, $Starttime, $Finishtime, $Cost)
     {
-        echo "entered update_slot";
         $this->load->database();
-
-        $query = $this->db->query("UPDATE Slot SET DocId = '$DocId', SlotDate = '$SlotDate', start_time = '$Starttime', finish_time = '$Finishtime', cost = '$Cost' WHERE SlotId = '$Id'");
+        $this->db->query("UPDATE Slot SET DocId = '$DocId', SlotDate = '$SlotDate', start_time = '$Starttime', finish_time = '$Finishtime', cost = '$Cost' WHERE SlotId = '$Id'");
+        $query = $this->getAppointments();
+        return $query;
     }
 }
 
