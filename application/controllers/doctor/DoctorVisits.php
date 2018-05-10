@@ -41,7 +41,5 @@ class DoctorVisits extends CI_Controller
     }
 
 
-
-
 }
 
