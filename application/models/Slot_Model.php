@@ -115,14 +115,14 @@
 			echo"</br>";
 			echo($Doctorname);
 			
-			/*
+			
 			$Patientname = "Conor Bourke";
 			$Doctorname = "David Kane";
 			$Starttime = "09:00";
 			$Finishtime = "09:30";
-			$Date = "2018-05-11";
+			$Date = "2018-05-23";
 			$Cost = 60;
-			*/
+			
 			
 			$con = mysqli_connect("localhost", "root", "", "surgery");
 			$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
@@ -130,50 +130,71 @@
 			$rs = mysqli_fetch_array($result);	
 			$DocId = $rs['DocId'];
 			
-			$sql = "SELECT DocId FROM slot WHERE DocId Like '$DocId' and SlotDate like'$Date' and start_time like'$Starttime' and finish_time like '$Finishtime'";
+			//Checks if patient exists
+			$sql = "SELECT PatName FROM patients WHERE PatName Like '$Patientname'";
 			$result = mysqli_query($con, $sql);
-			$rowcount=mysqli_num_rows($result);
+			$PatCount=mysqli_num_rows($result);
 			
-			$query = $this->db->query( "SELECT DocId FROM slot WHERE DocId Like '$DocId' and SlotDate like'$Date' and start_time like'$Starttime' and finish_time like '$Finishtime'");
+			$sql = "SELECT DocName FROM doctors WHERE DocName Like '$Doctorname'";
+			$result = mysqli_query($con, $sql);
+			$DocCount=mysqli_num_rows($result);
+			
+			if($PatCount > 0 and $DocCount > 0)
+			{
+				$auth = 0;
+			}
+			else{
+				echo"Doctor or Patient do not exist";
+			}
+			
+			$query = $this->db->query("SELECT Patname FROM patients WHERE Patname Like '$Patientname'");
 			$query->result_array();
 			
 			echo "<pre>";
 			print_r($query->result_array());
 			echo "</pre>";
+			
+			$sql = "SELECT DocId FROM slot WHERE DocId Like '$DocId' and SlotDate like'$Date' and start_time like'$Starttime' and finish_time like '$Finishtime'";
+			$result = mysqli_query($con, $sql);
+			$rowcount=mysqli_num_rows($result);
+			
 			//To check if the time slot is already taken 
 			if($rowcount > 0){
 				echo"Already exists";
 			}
 			else
 			{
-				echo"Does not exist";
-				$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
-				$result = mysqli_query($con, $sql);
-				$rs = mysqli_fetch_array($result);
-				// Used to store the doctors id to be used in another query
-				// https://stackoverflow.com/questions/28634852/how-to-store-a-variable-from-a-sql-query-php
-				$DocId = $rs['DocId'];
-				echo($DocId);
-				echo"</br>";
-				
-				//Used to get the patients id to be inserted into the appointment table
-				$sql = "SELECT PatId FROM patients WHERE PatName Like '$Patientname'";
-				$result = mysqli_query($con, $sql);
-				$rs = mysqli_fetch_array($result);
-				$PatId = $rs['PatId'];
-				echo($PatId);	
-				
-				//Inserts the information into the table slot
-				$query = $this->db->query("INSERT INTO slot (DocID, SlotDate, start_time, finish_time, cost) VALUES('$DocId', '$Date', '$Starttime', '$Finishtime', '$Cost')");
-				
-				//Used to get SlotId to insert into the table appointments
-				$sql = "SELECT SlotId FROM slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time like '$Starttime'";
-				$result = mysqli_query($con, $sql);
-				$rs = mysqli_fetch_array($result);
-				$SlotId = $rs['SlotId'];
-				echo($SlotId);
-				
-				$query = $this->db->query("INSERT INTO Appointments (PatId, SlotId) VALUES('$PatId', $SlotId)");
+				if($auth == 0)
+				{
+					echo"Does not exist";
+					$sql = "SELECT DocId FROM doctors WHERE DocName Like '$Doctorname'";
+					$result = mysqli_query($con, $sql);
+					$rs = mysqli_fetch_array($result);
+					// Used to store the doctors id to be used in another query
+					// https://stackoverflow.com/questions/28634852/how-to-store-a-variable-from-a-sql-query-php
+					$DocId = $rs['DocId'];
+					echo($DocId);
+					echo"</br>";
+					
+					//Used to get the patients id to be inserted into the appointment table
+					$sql = "SELECT PatId FROM patients WHERE PatName Like '$Patientname'";
+					$result = mysqli_query($con, $sql);
+					$rs = mysqli_fetch_array($result);
+					$PatId = $rs['PatId'];
+					echo($PatId);	
+					
+					//Inserts the information into the table slot
+					$query = $this->db->query("INSERT INTO slot (DocID, SlotDate, start_time, finish_time, cost) VALUES('$DocId', '$Date', '$Starttime', '$Finishtime', '$Cost')");
+					
+					//Used to get SlotId to insert into the table appointments
+					$sql = "SELECT SlotId FROM slot WHERE DocId Like '$DocId' AND SlotDate Like '$Date' AND start_time like '$Starttime'";
+					$result = mysqli_query($con, $sql);
+					$rs = mysqli_fetch_array($result);
+					$SlotId = $rs['SlotId'];
+					echo($SlotId);
+					
+					$query = $this->db->query("INSERT INTO Appointments (PatId, SlotId) VALUES('$PatId', $SlotId)");
+				}
 			}
 		}
 		

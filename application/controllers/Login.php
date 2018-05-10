@@ -45,9 +45,9 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('userType', 'User Type', 'required');
         if ($this->form_validation->run() == false) {
             // validation not ok, send validation errors to the view
-            $this->load->view('header');  // A
+            $this->load->view('menu/header');  // A
             $this->load->view('users/login');
-            $this->load->view('footer');
+            $this->load->view('menu/footer');
         } else {
             // set variables from the form
             $username = $this->input->post('username');
@@ -71,7 +71,7 @@ class Login extends CI_Controller
                 //$_SESSION['username'] = (string)$user->username;
                 $_SESSION['logged_in'] = (bool)true;
                 // Compile the page
-                $this->load->view('header');
+                $this->load->view('menu/header');
                 //TODO: set the redirect on successful login - Determined by the user types ... See line 72
                 if ($user_type == 'doctor') {
                     //TODO: There needs to be server side restrictions on these pages
@@ -84,9 +84,9 @@ class Login extends CI_Controller
                 // login failed
                 $data->error = 'Wrong username or password.';
                 // send error to the view
-                $this->load->view('header');
+                $this->load->view('menu/header');
                 $this->load->view('users/login', $data);
-                $this->load->view('footer');
+                $this->load->view('menu/footer');
             }
         }
     }
