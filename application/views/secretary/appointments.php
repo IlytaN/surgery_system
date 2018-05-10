@@ -495,7 +495,7 @@
                     $('#appointmentsCalender').fullCalendar('updateEvents', events);
                     $('#UpdateAppointmentModal').modal('hide')
                 });
-        })
+        });
 
 
         //CK: There might be a better PHP way of doing this
@@ -516,7 +516,7 @@
                 doctorNameNewAppointment: dn,
                 startlotNewAppointment: $('#startlotNewAppointment').selectpicker('val'),
                 finishSelectNewAppointment: $('#finishSelectNewAppointment').selectpicker('val'),
-                date: $('#addNewAppDate').val(),
+                date: $('#addNewAppDate').val()
             };
 
             $.post("secretaryappointments/newappointment", fdata)
@@ -526,7 +526,7 @@
                     //https://fullcalendar.io/docs/rerenderEvents
                     $('#newAppointmentModal').modal('hide')
                 });
-        })
+        });
 
         $('#addPaymentBtn').click(function () {
             var fdata = $('#').serializeArray();
@@ -537,7 +537,7 @@
                     //https://fullcalendar.io/docs/rerenderEvents
 
                 });
-        })
+        });
     });
 
 

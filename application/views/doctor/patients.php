@@ -241,8 +241,7 @@
                             <!--CK: Using json_encode allows the data to be encoded for better use in front end
                                 CK: utilising HTML5 data-*** attribute to attach the data to the element
                             -->
-                            <a type="button" class="btn btn-primary"
-                               href="<?= base_url('index.php/doctor/doctorpatients/get_patient_details/0') ?>">Patient
+                            <a type="button" class="btn btn-primary">Patient
                                 page</a>
                         </td>
                     </tr>

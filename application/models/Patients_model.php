@@ -30,6 +30,15 @@ Class Patients_model extends CI_model
         return $this->db->get()->result_array();
     }
 
+    // add medical history
+    public function addMedicalHistory($inserted_data)
+    {
+        $this->db->insert('MedicalHistory', $inserted_data);
+        if ($this->db->affected_rows() > 0)
+            return true;
+        else return false;
+    }
+
     // add a patient
     public function addPatient($inserted_data)
     {
