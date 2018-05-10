@@ -50,7 +50,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" style="width: 40%" class="btn btn-primary">Save Changes</button>
+                <button type="button" id="editPatientDetailtsBtn" style="width: 40%" class="btn btn-primary">Save Changes</button>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">View Patient Records</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Add Patient Record</h4>
             </div>
 
             <!--CK:  TODO: trigger the display of EDIT or VIEW in JS and avoid Over complication with PHP views -->
@@ -114,7 +114,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="exampleModalLabel">View Patient Records</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Add Patient Record</h4>
             </div>
 
             <!--CK:  TODO: trigger the display of EDIT or VIEW in JS and avoid Over complication with PHP views -->
@@ -291,10 +291,10 @@
                         <td colspan="2" class="text-center">
                             <!--CK: Using json_encode allows the data to be encoded for better use in front end
                                 CK: utilising HTML5 data-*** attribute to attach the data to the element
-                            -->
+                            <!--
                             <button class="btn btn-primary" data-toggle="modal" data-target="#patientModalView"
                                     data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>View
-                            </button>
+                            </button> -->
                             <button class="btn btn-default" data-toggle="modal" data-target="#patientModalEdit"
                                     data-viewpatient='<?php echo json_encode($patients[$c]) ?>'>Edit
                             </button>
@@ -358,7 +358,9 @@
             $('#ID').prop('value',recipient)
         })
 
-
+        $('#editPatientDetailtsBtn').click(function () {
+            $('#patientModalEdit').modal('hide')
+        })
         $('#addPatSubmit').click(function () {
 
             var fdata = {
@@ -368,11 +370,12 @@
                 PatAddress: $('#PatAddress').val()
             };
 
-            $.post("secretaryappointments/newappointment", fdata)
+            $.post("secretarypatients/add_patient", fdata)
                 .done(function (resp) {
-                    $('#newAppointmentModal').modal('hide')
+                    $('#newPatientModal').modal('hide')
                 }).error(function (resp) {
                 console.log(resp)
+                $('#newPatientModal').modal('hide')
             });
         });
     })

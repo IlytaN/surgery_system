@@ -525,7 +525,9 @@
                     //CK: This  will allow us to rerender the appointments once it returns true.-->
                     //https://fullcalendar.io/docs/rerenderEvents
                     $('#newAppointmentModal').modal('hide')
-                });
+                }).error(function () {
+                $('#newAppointmentModal').modal('hide')
+            });
         });
 
         $('#addPaymentBtn').click(function () {
